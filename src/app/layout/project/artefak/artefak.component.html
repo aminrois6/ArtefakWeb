@@ -1,0 +1,116 @@
+<div [@routerTransition]>
+    <app-page-header [heading]="'Artefak'" [icon]="'fa-edit'"></app-page-header>
+    <table class="table table-striped">
+        <tbody *ngIf="! datanya">
+          <tr>
+            <td colspan="4" class="text-center">
+              LOADING...
+            </td>
+          </tr>
+        </tbody >
+      </table>  
+  <div class="wrapper" *ngIf="datanya">
+    <div class="item col-sm-4" *ngFor="let data of datanya; index as i">
+      <a class="list-group-item list-group-item-action active text-white text-center">
+        <b>{{data.nama_jenis}}</b>
+      </a>
+      <ng-container *ngFor="let artefak of datanyaArtefak; index as i">
+      <a class="list-group-item list-group-item-action" *ngIf="artefak?.jenis.id_jenis === data.id_jenis" type="button">
+          <div class="card-header" *ngIf="artefak?.jenis.id_jenis === data.id_jenis" (click)="open(content,artefak)">
+              <!-- <div class="card-header"> -->
+                  {{artefak.nama_artefak}}
+              <!-- </div> -->
+          </div>
+      </a>
+      </ng-container>
+      <a  class="list-group-item list-group-item-action" *ngIf="viewana === 'analisis' || viewana !== data.id_jenis"
+       (click)="cek(data.id_jenis)" type="button">+ Tambah Tugas</a>
+      <a *ngIf="viewana === data.id_jenis">
+      <div class="card mb-4">
+          <div class="card-body">
+              <textarea name="nama" id="comment" cols="30" rows="2" class="form-control" placeholder="Isi nama Tugas" [(ngModel)]="nama" ></textarea>                        
+          </div>
+          <div class="card-footer">
+              <button class="btn btn-info btn-sm" (click)="TambahArtefak(data.id_jenis)" title="Artefak Baru">Tambah</button>
+              &nbsp;
+              <i class="fa fa-times" (click)="viewana = 'analisis'"></i>
+          </div>
+      </div>
+      </a>
+  </div>
+</div>
+    
+<ng-template #content let-modal>
+        <div class="modal-header">
+          <h4 class="modal-title" id="modal-basic-title">{{nama}}</h4>
+          <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="form-group">
+              <!-- <i class="fa fa-archive"><label for="dateOfBirth">Nama Project</label></i> -->
+              <label for="nama">Nama Project</label>
+              <div class="input-group">
+                  <input type="text" class="form-control" placeholder="Nama Proyek" [(ngModel)]="nama" name="nama">
+              </div>
+              <br>
+              <label for="keterangan">Keterangan</label>
+              <div class="input-group">
+                <textarea name="deskripsi" id="comment" cols="30" rows="2" class="form-control" placeholder="Isi nama Tugas" [(ngModel)]="deskripsi" ></textarea>                        
+              </div>
+              <br>
+              <label for="file">File </label>
+              <!-- <i class="fa fa-plus-square pull-right" >Tambah</i> -->
+              <div class="berkas" >
+                <!-- <div class="card mb-3" *ngFor="let dberkas of databerkas2; index as i">
+                    <a >
+                    <div class="card-header bg-light text-black">
+                        {{dberkas.nama_berkas}}
+                        <i class="fa fa-trash pull-right"></i>
+                        <i class="fa fa-download pull-right" (click)="downloadartefak(dberkas)"></i>
+                    </div>
+                    <div class="card-body">
+                      <img src="http://127.0.0.1:8000/storage/{{dberkas.foto_berkas}}" width="150px" height="150px">
+                    </div>
+                    </a>
+                  </div> -->
+                  <table class="table table-striped" >
+                      <thead>
+                      <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Nama File</th>
+                        <!-- <th scope="col">Area</th>
+                        <th scope="col">Population</th> -->
+                      </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngIf="databerkas2==0">
+                          <td colspan="4" class="text-center">
+                            Belum ada Berkas Yang Tersimpan
+                          </td>
+                        </tr>
+                        <tr *ngFor="let dberkas of databerkas2; index as i">
+                          <th scope="row">{{ i + 1 }}</th>
+                          <td>{{ dberkas.nama_berkas }}</td>
+                          <td>
+                            <i class="fa fa-trash pull-right" (click)="hapusberkas(dberkas?.id_berkas)" placement="top" ngbTooltip="Hapus" type="button" title="Hapus Berkas"></i>
+                            <i class="fa fa-download pull-right" (click)="downloadartefak(dberkas)" alt="Download" type="button" title="Unduh Berkas"></i>
+                            <i class="fa fa-fw fa-user pull-right" title="user"></i>
+                          </td>
+                          <!-- <td>{{ country.population | number }}</td> -->
+                        </tr>
+                      </tbody>
+                    </table> 
+              </div>
+              <input type="file" id="files" (change)="prosesupload($event)" hidden> 
+                <img class="user-avatar" src= "{{image_pro}}" width="150px" />
+              <label for="files">Pilih File</label>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Save</button>
+        </div>
+      </ng-template>

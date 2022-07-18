@@ -1,0 +1,34 @@
+<div [@routerTransition]>
+    <app-page-header [heading]="'Scrum'" [icon]="'fa-edit'"></app-page-header>
+
+    <div class="row">
+        <div class="col col-sm-4">
+            <div class="list-group mb-3">
+                <a href="#" class="list-group-item list-group-item-action active">
+                  Analisis
+                </a>
+                <a href="#" class="list-group-item list-group-item-action">
+                    <div class="card mb-3">
+                        <div class="card-header">
+                            Design
+                        </div>
+                    </div>
+                </a>
+                <a  class="list-group-item list-group-item-action" *ngIf="viewana === 'analisis'" (click)="viewana = 'tambahana'">+ Tambah Tugas</a>
+                <a *ngIf="viewana === 'tambahana'">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <textarea name="" id="comment" cols="30" rows="2" class="form-control" placeholder="Isi nama Tugas"></textarea>                        
+                    </div>
+                    <div class="card-footer">
+                        <button class="btn btn-info btn-sm" (click)="randomize()">Tambah</button>
+                        &nbsp;
+                        <i class="fa fa-times" (click)="viewana = 'analisis'"></i>
+                    </div>
+                </div>
+                </a>
+              </div>
+        </div>
+    </div>
+    <!-- /.row -->
+</div>

@@ -1,0 +1,212 @@
+<div [@routerTransition]>
+    <app-page-header [heading]="'Project'" [icon]="'fa-tasks'"></app-page-header>
+    <!-- <ng-template #content let-modal>
+      <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Tambah Project</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form role="form" #formSignup="ngForm">
+          <div class="form-group">
+            <label for="nama">Nama Project</label>
+            <input id="nama" class="form-control" placeholder="Nama Project" name="nama" ngbDatepicker [(ngModel)]="nama">     
+          </div>
+          <div class="form-group">
+            <label for="dateOfBirth">SDLC</label><br>
+            <div class="btn-group" ngbDropdown role="group" aria-label="Button group with nested dropdown">
+                <button class="btn btn-outline-primary" ngbDropdownToggle> actions </button>
+                <div class="dropdown-menu" ngbDropdownMenu>
+                  <button ngbDropdownItem><i class="fa fa-user"></i> Waterfall</button>
+                  <button ngbDropdownItem><i class="fa fa-user"></i> Scrum</button>
+                </div>
+              </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Save</button>
+      </div>
+    </ng-template> -->
+
+    <button class="btn btn-info btn-m pull-right" title="Tambah Project" (click)="open(content)"><i class="fa fa-plus" aria-hidden="true" ></i></button><br><br>
+    <div class="row">
+        <div *ngIf="! datanya">
+          <div class="text-center">
+            LOADING.......
+          </div>
+        </div>
+        <div class="col col-sm-3" *ngFor="let data of datanya">
+            <div class="card mb-3">
+                <div class="card-header text-center"  >
+                    <b>{{data?.nama_project}}</b>
+                    <!-- <div class="btn-group mr-3 pull-right">
+                      <div class="btn-group" ngbDropdown role="group" aria-label="Button group with nested dropdown">
+                        <button class="btn btn-outline-primary" ngbDropdownToggle> actions </button>
+                        <div class="dropdown-menu" ngbDropdownMenu>
+                          <button ngbDropdownItem><i class="fa fa-user"></i> Update</button>
+                          <button ngbDropdownItem>Delete</button>
+                        </div>
+                      </div>
+                    </div> -->
+                </div>
+                <div class="card-body btn-outline-primary" (click)="keproject(data)" type="button">
+                    <i class="bi bi-arrow-repeat"> {{ data?.sdlc?.nama_sdlc }}</i><br>
+                    <i class="bi bi-person-fill"> {{data?.user.nama_user}}</i>
+                </div>
+                <div class="card-footer text-right">
+                    <button class="btn btn-light btn-sm" (click)="kemember(data)" aria-hidden="true" title="Tambah Member"><i class="bi bi-person-plus-fill"></i></button> 
+                    <!-- &nbsp; -->
+                    <button class="btn btn-light btn-sm" (click)="hapus(data?.id_project)" title="Delete"><i class="bi bi-trash-fill"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- <form>
+      <div class="form-group form-inline">
+          Full text search: <input class="form-control ml-2" type="text" >
+          <div class="col-md-8 text-right mb-2">
+            <button type="button" class="btn btn-info shadow-sm pull-right" (click)="open(content)"> Tambah Proyek</button>
+          </div>
+      </div>
+    </form> -->
+
+    <!-- <table class="table table-striped">
+      <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Nama</th>
+        <th scope="col">SDLC</th>
+        <th scope="col">CEO</th>
+      </tr>
+      </thead>
+      <tbody *ngIf="! datanya">
+        <tr>
+          <td colspan="4" class="text-center">
+            LOADING...
+          </td>
+        </tr>
+      </tbody >
+      <tbody *ngIf="datanya">
+      <tbody>
+      <tr *ngFor="let data of datanya; index as i " [routerLink]="['/artefak']">
+        <th scope="row">{{ i + 1 }}</th>
+        <td>
+          <ngb-highlight [result]="data?.judul_project" ></ngb-highlight>
+        </td>
+        <td><ngb-highlight [result]="data?.sdlc.nama_sdlc" ></ngb-highlight></td>
+        <td><ngb-highlight [result]="data?.user.email_user"></ngb-highlight></td>
+      </tr>
+      </tbody>
+    </table> -->
+    <!-- <table class="table table-striped">
+      <tbody *ngIf="! datanya">
+        <tr>
+          <td colspan="4" class="text-center">
+            LOADING...
+          </td>
+        </tr>
+      </tbody >
+    </table> -->
+    <!-- <div class="row" *ngIf="datanya">
+      <div class="col col-sm-3" *ngFor="let data of datanya; index as i" >
+          <div class="card mb-3" *ngIf="data?.sdlc?.nama_sdlc == 'Waterfall'">
+              <div class="card-header bg-light text-white">
+                  <b>{{data?.nama_project}} 
+                    <i class="fa fa-ellipsis-v pull-right" ></i>
+                    <img src="assets/images/scrum.png" width="30px" class="user-avatar" />
+                  </b>
+                  
+              </div>
+              <div class="card-footer bg-dark text-white">
+                  <button class="btn btn-light btn-sm" (click)='keproject(data)'>Buka</button>
+                  <i class="fa fa-trash pull-right" (click)='hapus(data?.id_project)' type="button"></i>
+              </div>
+          </div>
+          <div class="card mb-3" *ngIf="data?.sdlc?.nama_sdlc == 'Scrum'">
+            <div class="card-header bg-light text-white">
+                <b>{{data?.nama_project}} 
+                  <i class="fa fa-ellipsis-v pull-right" ></i>
+                  <img src="assets/images/waterfall.png" width="30px" class="user-avatar" />
+                </b>
+                
+            </div>
+            <div class="card-footer bg-dark text-white">
+                <button class="btn btn-light btn-sm" (click)='keproject(data)'>Buka</button>
+                <i class="fa fa-trash pull-right" (click)='hapus(data?.id_project)' type="button"></i>
+            </div>
+        </div>
+      </div>
+    </div> -->
+    <!-- <table class="table table-striped " *ngIf="datanya">
+        <thead >
+        <tr>
+          <th scope="col"><b>#</b></th>
+          <td><b>Nama Project</b></td>
+          <td><b>Metode</b></td>
+        </tr>
+        </thead>
+        <tbody class="button">
+        <tr  *ngFor="let data of datanya; index as i" (click)='keproject(data)'>
+          <th scope="row">{{ i + 1 }}</th>
+          <td >{{ data?.nama_project }}</td>
+          <td>{{ data?.sdlc?.nama_sdlc }}</td> -->
+          <!-- <td><button class="btn btn-light btn-sm" (click)='keproject(data)'>Buka</button></td>
+        </tr>
+        </tbody>
+    </table> -->
+    <nav aria-label="Page navigation example">
+        <ul class="pagination">
+          <li class="page-item disabled" *ngIf="! link?.links?.previous"><a class="page-link" (click)="prev()">Previous</a></li>
+          <li class="page-item" *ngIf="link?.links?.previous"><a class="page-link" (click)="prev()">Previous</a></li>
+          <li class="page-item" *ngFor="let no of total_pages; index as i">
+            <a class="page-link" (click)="hitung(i+1)">{{i+1}}</a>
+          </li>
+          <!-- <li class="page-item"><a class="page-link" href="#">1</a></li>
+    <li class="page-item"><a class="page-link" href="#">2</a></li>
+    <li class="page-item"><a class="page-link" href="#">3</a></li> -->
+          <li class="page-item disabled" *ngIf="! link?.links?.next"><a class="page-link" (click)="next()">Next</a></li>
+          <li class="page-item" *ngIf="link?.links?.next"><a class="page-link" (click)="next()">Next</a></li>
+        </ul>
+      </nav>
+
+<hr>
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Project Baru</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form>
+      <div class="form-group">
+        <label for="dateOfBirth">Nama Project</label>
+        <div class="input-group">
+            <input type="text" class="form-control" placeholder="Nama Proyek" [(ngModel)]="nama" name="nama">
+            <!-- <input type="text" class="form-control" placeholder="Nama Proyek"  name="nama"> -->
+          
+        </div>
+        <br>
+        <label for="dateOfBirth">Metode Project</label> <br>
+        <div class="input-group">
+            <select class="btn btn-outline-gray"  id="sdlc" name="sdlc" [(ngModel)]="idsdlc" >
+              <!-- <select  id="sdlc" name="sdlc" [(ngModel)]="idsdlc" > -->
+                <option [value]="0" >Pilih Metode</option>
+              <option *ngFor="let data of datasdlc" [value]=data.id_sdlc >{{data.nama_sdlc}}</option>
+            </select>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Save</button>
+  </div>
+  
+</ng-template>
+
+
+<pre>{{closeResult}}</pre>
+
+</div>

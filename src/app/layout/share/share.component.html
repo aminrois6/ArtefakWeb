@@ -1,0 +1,37 @@
+<div [@routerTransition]>
+    <app-page-header [heading]="'Share Project'" [icon]="'fa-table'"></app-page-header>
+        <!-- <div class="col col-sm-3" *ngFor="let data of datanya"> -->
+        <div class="col-sm-3">
+            <div class="card mb-3">
+                <div class="card-header text-center"  >
+                    <!-- <b>{{data?.nama_project}}</b> -->
+                    <b>Proyek Bersama</b>
+                </div>
+                <div class="card-body btn-outline-primary" (click)="keproject(data)" type="button">
+                   <!--  <i class="bi bi-arrow-repeat"> {{ data?.sdlc?.nama_sdlc }}</i><br>
+                    <i class="bi bi-person-fill"> {{data?.user.nama_user}}</i> -->
+                    <i class="bi bi-arrow-repeat"> Nama Proyek</i><br>
+                    <i class="bi bi-person-fill"> Nama User</i>
+                </div>
+                <div class="card-footer text-right">
+                    <button class="btn btn-light btn-sm" (click)="kemember(data)" aria-hidden="true" title="Tambah Member"><i class="bi bi-person-plus-fill"></i></button> 
+                    <!-- &nbsp; -->
+                    <button class="btn btn-light btn-sm" (click)="randomize()" title="Delete"><i class="bi bi-trash-fill"></i></button>
+                </div>
+            </div>
+        </div>
+    <!-- pagination -->
+    <!-- <nav aria-label="Page navigation example">
+        <ul class="pagination">
+          <li class="page-item disabled" *ngIf="! link?.links?.previous"><a class="page-link" (click)="prev()">Previous</a></li>
+          <li class="page-item" *ngIf="link?.links?.previous"><a class="page-link" (click)="prev()">Previous</a></li>
+          <li class="page-item" *ngFor="let no of total_pages; index as i">
+            <a class="page-link" (click)="hitung(i+1)">{{i+1}}</a>
+          </li>
+          <li class="page-item disabled" *ngIf="! link?.links?.next"><a class="page-link" (click)="next()">Next</a></li>
+          <li class="page-item" *ngIf="link?.links?.next"><a class="page-link" (click)="next()">Next</a></li>
+        </ul>
+      </nav> -->
+
+<hr>
+</div>

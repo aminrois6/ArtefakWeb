@@ -1,0 +1,32 @@
+<div [@routerTransition]>
+    <app-page-header [heading]="'Profile Pengguna'" [icon]="'fa fa-fw fa-user'"></app-page-header>
+
+    <!-- /Isi -->
+    <!-- div  class="col-md-2" >
+        <img class="user-avatar card-img" src="{{urlgambar}}{{imageUrl}}" alt="Card image" width="50" />
+        <input type="file" id="files" (change)="gantigambar($event)" hidden>
+        <label class="card-img-overlay" for="files" type="button" title="Perbarui Gambar" >
+        <i class="fa fa-camera  pull-right" ></i>
+        </label>
+    </div> -->
+    <div class="input-group mb-4">
+        <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1">Username</span>
+        </div>
+        <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" [(ngModel)]="nama">
+    </div>
+    <div class="input-group mb-4">
+        <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1">Email</span>
+        </div>
+        <input type="text" class="form-control" placeholder="Email" aria-label="Email" aria-describedby="basic-addon1" [(ngModel)]="email">
+    </div>
+    <div class="input-group mb-4">
+        <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1">Password</span>
+        </div>
+        <input type="text" class="form-control" placeholder="Password" aria-label="Password" aria-describedby="basic-addon1" [(ngModel)]="password">
+    </div>
+    <button type="button" class="btn btn-dark pull-right">Simpan</button>
+    <!-- /isi -->
+</div>

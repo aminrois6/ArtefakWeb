@@ -1,0 +1,70 @@
+<div [@routerTransition]>
+    <app-page-header [heading]="'Member'" [icon]="'fa-edit'"></app-page-header>
+    <button class="btn btn-info btn-m pull-right" title="Tambah Project" (click)="open(carimem)"><i class="fa fa-plus" aria-hidden="true" ></i></button><br><br>
+    <ng-template #carimem let-modal>
+      <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Project Baru</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <table class="table table-striped" >
+                      <thead>
+                      <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Nama Pengguna</th>
+                        <!-- <th scope="col">Area</th>
+                        <th scope="col">Population</th> -->
+                      </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngIf="!datauser">
+                          <td colspan="4" class="text-center">
+                            Belum ada Berkas Yang Tersimpan
+                          </td>
+                        </tr>
+                        <tr  *ngFor=" let data of datauser; index as i">
+                          <th scope="row">{{i+1}}</th>
+                          <td>{{data.nama_user}}</td>
+                          <td>
+                            <i class="fa fa-trash pull-right"  placement="top" ngbTooltip="Hapus" type="button" title="Hapus Berkas"></i>
+                            <i class="fa fa-download pull-right"  alt="Download" type="button" title="Unduh Berkas"></i>
+                            <i class="fa fa-fw fa-user pull-right" title="user"></i>
+                          </td>
+                          <!-- <td>{{ country.population | number }}</td> -->
+                        </tr>
+                      </tbody>
+                    </table>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Save</button>
+      </div>
+      
+    </ng-template>
+
+
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Nama</th>
+          <th scope="col">Status Member</th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor=" let member of datamember, index as i">
+          <th scope="row">{{i+1}}</th>
+          <td>{{member?.user?.nama_user}}</td>
+          <td>{{member?.role_project?.nama_role_project}}</td>
+          <td>
+            <i class="bi bi-gear" type="button" title="ganti privasi"></i>
+            <i class="bi bi-trash" type="button" title="hapus"></i>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+</div>
