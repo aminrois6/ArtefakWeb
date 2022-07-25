@@ -151,10 +151,10 @@ export class ArtefakComponent implements OnInit {
         }) 
     }
 
-    prosesupload(event){
-      this.image_pro = event.target.files[0].name;
-      console.log(this.image_pro);
-    }
+    // prosesupload(event){
+    //   this.image_pro = event.target.files[0].name;
+    //   console.log(this.image_pro);
+    // }
     
     uploadartefak(event){
       this.spinner.show();
