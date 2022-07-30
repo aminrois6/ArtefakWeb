@@ -47,4 +47,18 @@ export class ProfileComponent implements OnInit {
           console.log(err);
       })    
     }
-}
+    ganti(){
+        let formData = new FormData();
+          formData.append('email_user', this.email);
+          formData.append('password_user', this.password);
+          formData.append('nama_user', this.nama);
+          this.http.put(this.url.apiurl+'/users/'+this.iduser, formData).subscribe(data => {
+          let datanya2 =data['data'];
+          console.log(datanya2)
+          alert("Ganti Profil Sukses")
+      }, err => {
+          console.log(err);
+          alert("Ganti Profil Gagal "+err)
+      })    
+    }
+} 

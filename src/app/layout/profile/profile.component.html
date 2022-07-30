@@ -11,9 +11,9 @@
     </div> -->
     <div class="input-group mb-4">
         <div class="input-group-prepend">
-            <span class="input-group-text" id="basic-addon1">Username</span>
+            <span class="input-group-text" id="basic-addon1">Nama Pengguna</span>
         </div>
-        <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" [(ngModel)]="nama">
+        <input type="text" class="form-control" placeholder="Nama Pengguna" aria-label="Nama Pengguna" aria-describedby="basic-addon1" [(ngModel)]="nama">
     </div>
     <div class="input-group mb-4">
         <div class="input-group-prepend">
@@ -27,6 +27,6 @@
         </div>
         <input type="text" class="form-control" placeholder="Password" aria-label="Password" aria-describedby="basic-addon1" [(ngModel)]="password">
     </div>
-    <button type="button" class="btn btn-dark pull-right">Simpan</button>
+    <button type="button" class="btn btn-dark pull-right" (click)="ganti()">Simpan</button>
     <!-- /isi -->
 </div>
