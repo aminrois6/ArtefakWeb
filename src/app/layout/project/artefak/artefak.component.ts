@@ -81,12 +81,13 @@ export class ArtefakComponent implements OnInit {
       })   
     } 
     loadArtefak(){
+      console.log(this.dataproject.id_project);
        let formData = new FormData();
           formData.append('id_project', this.dataproject.id_project);
           this.http.post(this.url.apiurl+'/artefak/project', formData).subscribe(data => {
           let datanya2 =data['data'];
           this.datanyaArtefak=datanya2;
-          console.log(this.datanyaArtefak);
+          console.log(datanya2);
         //   this.sdlclist();
       }, err => {
           console.log(err);
@@ -190,7 +191,7 @@ export class ArtefakComponent implements OnInit {
           this.http.post(this.url.apiurl+'/berkas/awal', formData).subscribe(data => {
           let datanya2 =data['data'];
           this.databerkas=datanya2;
-          // console.log(this.databerkas);
+          console.log(this.databerkas);
           this.databerkas2=datanya2;
           // this.databerkas=this.databerkas2;
         //   this.databerkas.forEach(element=>{

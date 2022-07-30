@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy, Input  } from '@angular/core';
 import { routerTransition } from '../../router.animations';
-import { HttpClient, } from '@angular/common/http';
+import { HttpClient,HttpParams, HttpHeaders } from '@angular/common/http';
 import { NgxSpinnerService } from "ngx-spinner";
 import { Router } from '@angular/router';
 import { Urlservice } from '../../shared/services/url.service';
@@ -48,6 +48,7 @@ export class ProfileComponent implements OnInit {
       })    
     }
     ganti(){
+        // let h:HttpHeaders=new HttpHeaders();
         let formData = new FormData();
           formData.append('email_user', this.email);
           formData.append('password_user', this.password);
