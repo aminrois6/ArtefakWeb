@@ -29,13 +29,16 @@ export class ProfileComponent implements OnInit {
 
     ngOnInit() {
         this.datauser=JSON.parse(localStorage.getItem('isLoggedin'));
+        this.loadprofile();
+        // this.proses();
+    }
+    loadprofile(){
         this.iduser=this.datauser[0]['id_user'];
         this.nama=this.datauser[0]['nama_user'];
         this.email=this.datauser[0]['email_user'];
         this.password=this.datauser[0]['password_user'];
         this.imageUrl=this.datauser[0]['image_user']
         this.urlgambar=this.url.apidownload;
-        // this.proses();
     }
     proses(){
         let formData = new FormData();
@@ -53,10 +56,12 @@ export class ProfileComponent implements OnInit {
           formData.append('email_user', this.email);
           formData.append('password_user', this.password);
           formData.append('nama_user', this.nama);
-          this.http.put(this.url.apiurl+'/users/'+this.iduser, formData).subscribe(data => {
+          this.http.post(this.url.apiurl+'/users/update/'+this.iduser, formData).subscribe(data => {
           let datanya2 =data['data'];
           console.log(datanya2)
           alert("Ganti Profil Sukses")
+        //   localStorage.setItem('isLoggedin', JSON.stringify(datanya2));
+          this.loadprofile();
       }, err => {
           console.log(err);
           alert("Ganti Profil Gagal "+err)

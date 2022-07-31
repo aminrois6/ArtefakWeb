@@ -80,7 +80,7 @@ export class LoginComponent implements OnInit {
             formData.append('email_user', email);
             formData.append('password_user', password);
             this.http.post(this.url.apiurl+'/users/login', formData).subscribe(data => {
-                // console.log(data);
+                console.log(data);
                 if (data=="Data Kosong"){
                     this.spinner.hide();
                     alert('Email atau Password Salah');
