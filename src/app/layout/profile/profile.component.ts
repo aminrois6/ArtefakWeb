@@ -44,7 +44,7 @@ export class ProfileComponent implements OnInit {
           this.datanya2 =data['data'];
           console.log(this.datanya2)
       }, err => {
-          console.log(err);
+          console.log(err); 
       })    
     }
     ganti(){
