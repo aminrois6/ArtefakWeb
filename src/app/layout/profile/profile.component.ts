@@ -15,6 +15,7 @@ export class ProfileComponent implements OnInit {
     datauser: any;
     iduser: any;
     datanya2: any;
+    datanya: any;
     nama: any;
     email: any;
     password: any;
@@ -29,16 +30,28 @@ export class ProfileComponent implements OnInit {
 
     ngOnInit() {
         this.datauser=JSON.parse(localStorage.getItem('isLoggedin'));
+        this.iduser=this.datauser[0]['id_user'];
         this.loadprofile();
+        // this.nama=this.datauser[0]['nama_user'];
+        // this.email=this.datauser[0]['email_user'];
+        // this.password=this.datauser[0]['password_user'];
+        // this.imageUrl=this.datauser[0]['image_user']
+        // this.urlgambar=this.url.apidownload;
         // this.proses();
     }
     loadprofile(){
-        this.iduser=this.datauser[0]['id_user'];
-        this.nama=this.datauser[0]['nama_user'];
-        this.email=this.datauser[0]['email_user'];
-        this.password=this.datauser[0]['password_user'];
-        this.imageUrl=this.datauser[0]['image_user']
-        this.urlgambar=this.url.apidownload;
+        let formData = new FormData();
+        formData.append('id_user', this.iduser);
+        this.http.get(this.url.apiurl+'/project/tampil?id_user='+ this.iduser).subscribe(data => {
+        let datanya2 =data['data'];
+        this.datanya=datanya2;
+        this.nama=this.datanya[0]["user"]["nama_user"];
+        this.email=this.datanya[0]["user"]["email_user"];
+        this.password=this.datanya[0]["user"]["password_user"];
+        console.log(this.datanya[0]["user"])
+    }, err => {
+        console.log(err);
+    })    
     }
     proses(){
         let formData = new FormData();
