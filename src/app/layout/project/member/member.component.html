@@ -3,13 +3,19 @@
     <button class="btn btn-info btn-m pull-right" title="Tambah Project" (click)="open(carimem)"><i class="fa fa-plus" aria-hidden="true" ></i></button><br><br>
     <ng-template #carimem let-modal>
       <div class="modal-header">
-        <h4 class="modal-title" id="modal-basic-title">Project Baru</h4>
+        <h4 class="modal-title" id="modal-basic-title">Tambah Member</h4>
         <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
         <form>
+          <div class="mb-3 row">
+            <label for="table-filtering-search" class="col-xs-3 col-sm-auto col-form-label"><i class="fa fa-search"></i></label>
+            <div class="col-xs-3 col-sm-auto">
+              <input id="table-filtering-search" class="form-control" name="cari" type="text" (keyup)="carimember()" placeholder="Search Member" [(ngModel)]="datacari">
+            </div>
+          </div>
           <table class="table table-striped" >
                       <thead>
                       <tr>
@@ -20,18 +26,19 @@
                       </tr>
                       </thead>
                       <tbody>
-                        <tr *ngIf="!datauser">
+                        <tr *ngIf="!datanya || datanya==[] ||datanya== undefined || datanya==''">
                           <td colspan="4" class="text-center">
-                            Belum ada Berkas Yang Tersimpan
+                            Member Tidak ditemukan!!!
                           </td>
                         </tr>
-                        <tr  *ngFor=" let data of datauser; index as i">
+                        <tr  *ngFor=" let data of datanya; index as i">
                           <th scope="row">{{i+1}}</th>
                           <td>{{data.nama_user}}</td>
                           <td>
-                            <i class="fa fa-trash pull-right"  placement="top" ngbTooltip="Hapus" type="button" title="Hapus Berkas"></i>
-                            <i class="fa fa-download pull-right"  alt="Download" type="button" title="Unduh Berkas"></i>
-                            <i class="fa fa-fw fa-user pull-right" title="user"></i>
+                            <!-- <i class="fa fa-trash pull-right"  placement="top" ngbTooltip="Hapus" type="button" title="Hapus Berkas"></i>
+                            <i class="fa fa-download pull-right"  alt="Download" type="button" title="Unduh Berkas"></i> -->
+                            <i class="fa fa-solid fa-user-plus pull-right" title="user" (click)="buka(carirole, data)">
+                            </i>
                           </td>
                           <!-- <td>{{ country.population | number }}</td> -->
                         </tr>
@@ -40,7 +47,7 @@
         </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Save</button>
+        <!-- <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Save</button> -->
       </div>
       
     </ng-template>
@@ -61,10 +68,61 @@
           <td>{{member?.user?.nama_user}}</td>
           <td>{{member?.role_project?.nama_role_project}}</td>
           <td>
-            <i class="bi bi-gear" type="button" title="ganti privasi"></i>
-            <i class="bi bi-trash" type="button" title="hapus"></i>
+            <i class="bi bi-gear" type="button" title="ganti privasi" (click)="gantirole(editrole, member)"></i>
+            <i class="bi bi-trash" type="button" title="hapus" (click)="hapusmember(member?.id_member)"></i>
           </td>
         </tr>
       </tbody>
     </table>
 </div>
+
+<ng-template #carirole let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Status Member</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form>
+      <div class="mb-3">
+        <label for="dateOfBirth">Status Member</label>
+        <div class="input-group">
+          <select class="btn btn-outline-gray"  id="sdlc" name="sdlc" [(ngModel)]="idrole" >
+            <option [value]="0" >Pilih Status Member</option>
+            <option *ngFor="let data of datarole" [value]=data.id_role_project >{{data.nama_role_project}}</option>
+          </select>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Save</button>
+  </div>
+  
+</ng-template>
+<ng-template #editrole let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Status Member</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form>
+      <div class="mb-3">
+        <label for="dateOfBirth">Status Member</label>
+        <div class="input-group">
+          <select class="btn btn-outline-gray"  id="sdlc" name="sdlc" [(ngModel)]="idrole" >
+            <option [value]="0" >Pilih Status Member</option>
+            <option *ngFor="let data of datarole" [value]=data.id_role_project >{{data.nama_role_project}}</option>
+          </select>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Save</button>
+  </div>
+  
+</ng-template>

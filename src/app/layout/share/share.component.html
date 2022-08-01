@@ -1,25 +1,38 @@
 <div [@routerTransition]>
     <app-page-header [heading]="'Share Project'" [icon]="'fa-table'"></app-page-header>
         <!-- <div class="col col-sm-3" *ngFor="let data of datanya"> -->
-        <div class="col-sm-3">
-            <div class="card mb-3">
-                <div class="card-header text-center"  >
-                    <!-- <b>{{data?.nama_project}}</b> -->
-                    <b>Proyek Bersama</b>
+            <div class="row">
+                <div *ngIf="! datanya">
+                  <div class="text-center">
+                    LOADING.......
+                  </div>
                 </div>
-                <div class="card-body btn-outline-primary" (click)="keproject(data)" type="button">
-                   <!--  <i class="bi bi-arrow-repeat"> {{ data?.sdlc?.nama_sdlc }}</i><br>
-                    <i class="bi bi-person-fill"> {{data?.user.nama_user}}</i> -->
-                    <i class="bi bi-arrow-repeat"> Nama Proyek</i><br>
-                    <i class="bi bi-person-fill"> Nama User</i>
-                </div>
-                <div class="card-footer text-right">
-                    <button class="btn btn-light btn-sm" (click)="kemember(data)" aria-hidden="true" title="Tambah Member"><i class="bi bi-person-plus-fill"></i></button> 
-                    <!-- &nbsp; -->
-                    <button class="btn btn-light btn-sm" (click)="randomize()" title="Delete"><i class="bi bi-trash-fill"></i></button>
+                <div class="col col-sm-3" *ngFor="let data of datanya">
+                    <div class="card mb-3">
+                        <div class="card-header text-center"  >
+                            <b>{{data?.project?.nama_project}}</b>
+                            <!-- <div class="btn-group mr-3 pull-right">
+                              <div class="btn-group" ngbDropdown role="group" aria-label="Button group with nested dropdown">
+                                <button class="btn btn-outline-primary" ngbDropdownToggle> actions </button>
+                                <div class="dropdown-menu" ngbDropdownMenu>
+                                  <button ngbDropdownItem><i class="fa fa-user"></i> Update</button>
+                                  <button ngbDropdownItem>Delete</button>
+                                </div>
+                              </div>
+                            </div> -->
+                        </div>
+                        <div class="card-body btn-outline-primary" (click)="keproject(data)" type="button">
+                            <i class="bi bi-arrow-repeat"> {{ data?.project?.sdlc?.nama_sdlc }}</i><br>
+                            <i class="bi bi-person-fill"> {{data?.project?.user.nama_user}}</i>
+                        </div>
+                        <div class="card-footer text-right">
+                            <button class="btn btn-light btn-sm" (click)="kemember(data)" aria-hidden="true" title="Tambah Member"><i class="bi bi-person-plus-fill"></i></button> 
+                            <!-- &nbsp; -->
+                            <button class="btn btn-light btn-sm" (click)="hapus(data?.id_project)" title="Delete"><i class="bi bi-trash-fill"></i></button>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
     <!-- pagination -->
     <!-- <nav aria-label="Page navigation example">
         <ul class="pagination">
