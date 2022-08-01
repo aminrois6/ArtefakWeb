@@ -59,6 +59,7 @@ export class ShareComponent implements OnInit {
       let formData = new FormData();
           formData.append('id_user', this.iduser);
           this.http.get(this.url.apiurl+'/member/tampiluser?id_user='+ this.iduser).subscribe(data => {
+            // this.http.get(this.url.apiurl+'/member').subscribe(data => {
           let datanya2 =data['data'];
           this.datanya=datanya2;
           this.link=data['meta'].pagination;
@@ -80,7 +81,7 @@ export class ShareComponent implements OnInit {
             this.datanya=datanya2;
             this.link=data['meta'].pagination;
             // console.log(this.datanya);
-            this.sdlclist();
+            // this.sdlclist();
         }, err => {
             console.log(err);
         })    
@@ -93,21 +94,30 @@ export class ShareComponent implements OnInit {
             this.datanya=datanya2;
             this.link=data['meta'].pagination;
             // console.log(this.datanya);
-            this.sdlclist();
+            // this.sdlclist();
         }, err => {
             console.log(err);
         })   
       }
       hitung(i){
         this.datanya=[];
-        this.http.get<any>(this.url.apiurl+'/project/tampil?id_user='+ this.iduser +'&page='+i).subscribe(data => {
+        this.http.get<any>(this.url.apiurl+'/member/tampiluser?id_user='+ this.iduser +'&page='+i).subscribe(data => {
           let datanya2 =data['data'];
             this.datanya=datanya2;
             this.link=data['meta'].pagination;
             console.log(this.datanya);
-            this.sdlclist();
+            // this.sdlclist();
         }, err => {
             console.log(err);
         })   
+      }
+      keproject(data){
+        if(data.sdlc.nama_sdlc=='Waterfall'){
+          localStorage.setItem('dataproject', JSON.stringify(data));
+          this.router.navigate(['/artefak']);
+        }else if(data.sdlc.nama_sdlc=="Scrum"){
+          localStorage.setItem('dataproject', JSON.stringify(data));
+          this.router.navigate(['/artefakscrum']);
+        }
       }
 }
