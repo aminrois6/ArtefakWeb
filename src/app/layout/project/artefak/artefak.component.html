@@ -51,14 +51,14 @@
           <form>
             <div class="form-group">
               <!-- <i class="fa fa-archive"><label for="dateOfBirth">Nama Project</label></i> -->
-              <label for="nama">Nama Project</label>
+              <label for="nama">Nama Artefak</label>
               <div class="input-group">
-                  <input type="text" class="form-control" placeholder="Nama Proyek" [(ngModel)]="nama" name="nama">
+                  <input type="text" class="form-control" placeholder="Nama Artefak" [(ngModel)]="nama" name="nama">
               </div>
               <br>
               <label for="keterangan">Keterangan</label>
               <div class="input-group">
-                <textarea name="deskripsi" id="comment" cols="30" rows="2" class="form-control" placeholder="Isi nama Tugas" [(ngModel)]="deskripsi" ></textarea>                        
+                <textarea name="deskripsi" id="comment" cols="30" rows="2" class="form-control" placeholder="Isi Keterangan" [(ngModel)]="deskripsi" ></textarea>                        
               </div>
               <br>
               <label for="file">File </label>
@@ -97,7 +97,7 @@
                           <td>
                             <i class="fa fa-trash pull-right" (click)="hapusberkas(dberkas?.id_berkas)" placement="top" ngbTooltip="Hapus" type="button" title="Hapus Berkas"></i>
                             <i class="fa fa-download pull-right" (click)="downloadartefak(dberkas)" alt="Download" type="button" title="Unduh Berkas"></i>
-                            <i class="fa fa-fw fa-user pull-right" title="user"></i>
+                            <!-- <i class="fa fa-fw fa-user pull-right" title="user"></i> -->
                           </td>
                           <!-- <td>{{ country.population | number }}</td> -->
                         </tr>
