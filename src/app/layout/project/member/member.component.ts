@@ -165,6 +165,52 @@ export class MemberComponent implements OnInit {
       } 
     }
 
+    editmember(id){
+      if (this.idrole==0){
+        // alert('Metode Project Harus di Pilih');
+        swal.fire(
+          'Gagal!',
+          'Status Member Harus di Pilih',
+          'error'
+        )
+      }else{
+        swal.fire({
+          title: 'Apakan Anda Yakin?',
+          text: "Ingin Mengganti Status Member "+this.datamember2.user.nama_user+" !!",
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Ya, Ganti Status!',
+          cancelButtonText: 'Batal!'
+        }).then((result) => {
+          if (result.value) {
+                  let formData = new FormData();
+                  formData.append('id_project', this.dataproject.id_project);
+                  formData.append('id_user', this.datamember2.user.id_user);
+                  formData.append('id_role_project', this.idrole);
+                  this.http.post(this.url.apiurl+'/member/'+id, formData).subscribe(data => {
+                  console.log(data);
+                  this.panggilstatusmember();
+                  swal.fire(
+                    'Berhasi!',
+                    'Berhasil Tambah Member Baru.',
+                    'success'
+                  )
+            }, err => {
+              console.log(err);
+              alert(err)
+              swal.fire(
+                'Gagal Tambah!',
+                'Gagal Tambah Member Baru.',
+                'error'
+              )
+            })
+          }
+        })   
+      } 
+    }
+
     hapusmember(id){
       swal.fire({
         title: 'Apakan Anda Yakin?',
