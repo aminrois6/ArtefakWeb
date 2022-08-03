@@ -24,9 +24,12 @@ export class ArtefakComponent implements OnInit {
     databerkas:any[];
     databerkas2: Array<any>=[];
     datanya:any;
+    datamember:any;
     datanyaArtefak:any;
     closeResult: string;
     deskripsi: any;
+    datauser:any;
+    iduser:any;
     image_pro:any;
     image_ext:Array<any>=['jpeg','jpg','png','gif'];
     audio_ext:Array<any>=['mp3','oga','ogg','wav', 'm3u', 'mp4a', 'mpga', 'weba', 'm4a'];
@@ -41,8 +44,11 @@ export class ArtefakComponent implements OnInit {
     ngOnInit() {
         this.dataproject=JSON.parse(localStorage.getItem('dataproject'));
         this.namaproject=this.dataproject.nama_project;
+        this.datauser=JSON.parse(localStorage.getItem('isLoggedin'));
+        this.iduser=this.datauser[0]['id_user'];
         console.log(this.namaproject);
         this.loadJenis();
+        this.panggilmemberuser();
     }
     open(content,artefak) {
       this.nama=artefak.nama_artefak;
@@ -248,5 +254,13 @@ export class ArtefakComponent implements OnInit {
       }, err => {
           console.log(err);
       })  
+    }
+    panggilmemberuser(){
+      this.http.get(this.url.apiurl+'/member/cariuser?id_project='+this.dataproject.id_project+'&'+'id_user='+this.iduser).subscribe(data=>{
+        this.datamember=data['data'][0].role_project.nama_role_project;
+        console.log(this.datamember);
+    },err=>{
+      console.log(err);
+    })
     }
 }

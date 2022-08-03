@@ -24,20 +24,26 @@
           </div>
       </a>
       </ng-container>
-      <a  class="list-group-item list-group-item-action" *ngIf="viewana === 'analisis' || viewana !== data.id_jenis"
-       (click)="cek(data.id_jenis)" type="button">+ Tambah Tugas</a>
-      <a *ngIf="viewana === data.id_jenis">
-      <div class="card mb-4">
-          <div class="card-body">
-              <textarea name="nama" id="comment" cols="30" rows="2" class="form-control" placeholder="Isi nama Tugas" [(ngModel)]="nama" ></textarea>                        
-          </div>
-          <div class="card-footer">
-              <button class="btn btn-info btn-sm" (click)="TambahArtefak(data.id_jenis)" title="Artefak Baru">Tambah</button>
-              &nbsp;
-              <i class="fa fa-times" (click)="viewana = 'analisis'"></i>
-          </div>
+      <div *ngIf="datamember==='Pemilik Project'
+      ||datamember==='Programmer'">
+      <!-- <div>         -->
+        <a  class="list-group-item list-group-item-action" 
+        *ngIf="viewana === 'analisis' 
+        || viewana !== data.id_jenis"
+        (click)="cek(data.id_jenis)" type="button">+ Tambah Tugas</a>
+        <a *ngIf="viewana === data.id_jenis">
+        <div class="card mb-4">
+            <div class="card-body">
+                <textarea name="nama" id="comment" cols="30" rows="2" class="form-control" placeholder="Isi nama Tugas" [(ngModel)]="nama" ></textarea>                        
+            </div>
+            <div class="card-footer">
+                <button class="btn btn-info btn-sm" (click)="TambahArtefak(data.id_jenis)" title="Artefak Baru">Tambah</button>
+                &nbsp;
+                <i class="fa fa-times" (click)="viewana = 'analisis'"></i>
+            </div>
+        </div>
+        </a>
       </div>
-      </a>
   </div>
 </div>
     
