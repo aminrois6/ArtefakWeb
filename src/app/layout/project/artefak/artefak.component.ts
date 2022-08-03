@@ -7,6 +7,7 @@ import { NgxSpinnerService } from "ngx-spinner";
 import { Subscription } from 'rxjs';
 import { FileSaver }   from 'file-saver';
 import { send } from 'q';
+import swal from 'sweetalert2';
 
 @Component({
     selector: 'app-artefak',
@@ -174,6 +175,39 @@ export class ArtefakComponent implements OnInit {
     downloadartefak(data){
       let FileSaver = require('file-saver');
       FileSaver.saveAs(this.url.apidownload+data.isi_berkas, data.nama_berkas)
+    }
+    hapusartefak(id){
+      swal.fire({
+        title: 'Apakan Anda Yakin?',
+        text: "Anda Tidak Bisa Mengembalikan Artefak Ini!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Ya, Hapus!',
+        cancelButtonText: 'Batal!'
+      }).then((result) => {
+        if (result.value) {
+          this.http.delete( this.url.apiurl+'/artefak'+ '/' +id ).subscribe(data => {
+            console.log(data);
+                // alert('Sukses Hapus')
+                this.loadArtefak();
+                swal.fire(
+                  'Terhapus!',
+                  'Artefak Anda Sudah Terhapus.',
+                  'success'
+                )
+          }, err => {
+            console.log(err);
+            alert(err)
+            swal.fire(
+              'Gagal Menghapus!',
+              'Artefak Anda Tidak Terhapus.',
+              'error'
+            )
+          })
+        }
+      })
     }
     hapusberkas(id){
       this.http.delete( this.url.apiurl+'/berkas'+ '/' +id ).subscribe(data => {

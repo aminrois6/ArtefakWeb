@@ -19,6 +19,7 @@
           <div class="card-header" *ngIf="artefak?.jenis.id_jenis === data.id_jenis" (click)="open(content,artefak)">
               <!-- <div class="card-header"> -->
                   {{artefak.nama_artefak}}
+                  <i class="fa fa-trash pull-right" (click)="hapusartefak(artefak?.id_artefak)" title="Hapus Artefak"></i>
               <!-- </div> -->
           </div>
       </a>
@@ -106,7 +107,7 @@
               </div>
               <input type="file" id="files" (change)="uploadartefak($event)" hidden> 
                 <!-- <img class="user-avatar" src= "{{image_pro}}" width="150px" /> -->
-              <label for="files">Pilih File</label>
+              <label for="files" type="button" class="btn btn-outline-dark">Upload File</label>
             </div>
           </form>
         </div>
