@@ -65,7 +65,7 @@ export class ShareComponent implements OnInit {
           datanya2.forEach(element => {
             // console.log(element.role_project.nama_role_project)
             if(element.role_project.nama_role_project !=='Pemilik Project'){
-              this.datanya=element;
+              this.datanya.push(element);
             }
           });
           this.link=data['meta'].pagination;
