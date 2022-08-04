@@ -26,6 +26,7 @@ export class MemberComponent implements OnInit {
   datanya:any;
   datarole:any;
   idrole:any;
+  closeResult: string;
     constructor(
         private http:HttpClient,
         private url:Urlservice,
@@ -45,11 +46,11 @@ export class MemberComponent implements OnInit {
     }
     open(carimem) {
         this.modalService.open(carimem, {ariaLabelledBy: 'app-charts'}).result.then((result) => {
-          // this.closeResult = `Closed with: ${result}`;
+          this.closeResult = `Closed with: ${result}`;
           // this.tambah();
           
         }, (reason) => {
-          // this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+          this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
         });
       } 
       private getDismissReason(reason: any): string {
@@ -79,12 +80,12 @@ export class MemberComponent implements OnInit {
           this.datamember2=member;
           this.idrole=member.role_project.id_role_project;
           this.modalService.open(editrole, {ariaLabelledBy: 'app-charts'}).result.then((result) => {
-            // this.closeResult = `Closed with: ${result}`;
+            this.closeResult = `Closed with: ${result}`;
             // this.tambah();
             console.log(this.datamember2);
             
           }, (reason) => {
-            // this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+            this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
           });
         } 
     panggiluser(){

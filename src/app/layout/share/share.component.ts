@@ -64,7 +64,7 @@ export class ShareComponent implements OnInit {
           // this.datanya=datanya2;
           datanya2.forEach(element => {
             // console.log(element.role_project.nama_role_project)
-            if(element.role_project.nama_role_project !=='Pemilik Project'){
+            if(element.role_project.id_role_project !==2){
               this.datanya.push(element);
             }
           });
