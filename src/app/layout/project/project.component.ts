@@ -163,6 +163,9 @@ export class ProjectComponent implements OnInit {
       })   
       } 
     }
+    tambahmember(){
+      
+    }
     hapus(id){
       swal.fire({
         title: 'Apakan Anda Yakin?',

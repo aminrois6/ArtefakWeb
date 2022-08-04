@@ -26,6 +26,7 @@ export class ArtefakComponent implements OnInit {
     datanya:any;
     datamember:any;
     datanyaArtefak:any;
+    idartefak:any;
     closeResult: string;
     deskripsi: any;
     datauser:any;
@@ -53,13 +54,14 @@ export class ArtefakComponent implements OnInit {
     open(content,artefak) {
       this.nama=artefak.nama_artefak;
       this.deskripsi=artefak.deskripsi_artefak;
+      this.idartefak=artefak.id_artefak;
       this.dataedit=artefak;
       console.log(this.dataedit);
       this.loadBerkas();
       this.modalService.open(content, {ariaLabelledBy: 'app-artefak'}).result.then((result) => {
-        this.closeResult = `Closed with: ${result}`;
         this.ProsesUpdate();
         console.log(this.deskripsi)
+        this.closeResult = `Closed with: ${result}`;
         
       }, (reason) => {
         this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
@@ -257,7 +259,7 @@ export class ArtefakComponent implements OnInit {
     }
     panggilmemberuser(){
       this.http.get(this.url.apiurl+'/member/cariuser?id_project='+this.dataproject.id_project+'&'+'id_user='+this.iduser).subscribe(data=>{
-        this.datamember=data['data'][0].role_project.nama_role_project;
+        this.datamember=data['data'][0].role_project.id_role_project;
         console.log(this.datamember);
     },err=>{
       console.log(err);

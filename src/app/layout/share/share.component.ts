@@ -84,7 +84,13 @@ export class ShareComponent implements OnInit {
         this.datanya=[];
         this.http.get<any>(this.link['links']['next']+'&id_user='+this.iduser).subscribe(data => {
           let datanya2 =data['data'];
-            this.datanya=datanya2;
+          datanya2.forEach(element => {
+            // console.log(element.role_project.nama_role_project)
+            if(element.role_project.nama_role_project !=='Pemilik Project'){
+              this.datanya.push(element);
+            }
+          });
+            // this.datanya=datanya2;
             this.link=data['meta'].pagination;
             // console.log(this.datanya);
             // this.sdlclist();
@@ -97,7 +103,13 @@ export class ShareComponent implements OnInit {
         this.datanya=[];
         this.http.get<any>(this.link['links']['previous']+'&id_user='+this.iduser).subscribe(data => {
           let datanya2 =data['data'];
-            this.datanya=datanya2;
+          datanya2.forEach(element => {
+            // console.log(element.role_project.nama_role_project)
+            if(element.role_project.nama_role_project !=='Pemilik Project'){
+              this.datanya.push(element);
+            }
+          });
+            // this.datanya=datanya2;
             this.link=data['meta'].pagination;
             // console.log(this.datanya);
             // this.sdlclist();
@@ -109,7 +121,13 @@ export class ShareComponent implements OnInit {
         this.datanya=[];
         this.http.get<any>(this.url.apiurl+'/member/tampiluser?id_user='+ this.iduser +'&page='+i).subscribe(data => {
           let datanya2 =data['data'];
-            this.datanya=datanya2;
+          datanya2.forEach(element => {
+            // console.log(element.role_project.nama_role_project)
+            if(element.role_project.id_role_project !==2){
+              this.datanya.push(element);
+            }
+          });
+            // this.datanya=datanya2;
             this.link=data['meta'].pagination;
             console.log(this.datanya);
             // this.sdlclist();
@@ -125,5 +143,38 @@ export class ShareComponent implements OnInit {
           localStorage.setItem('dataproject', JSON.stringify(data));
           this.router.navigate(['/artefakscrum']);
         }
+      }
+      hapusmember(id){
+        swal.fire({
+          title: 'Apakan Anda Yakin?',
+          text: "Anda Tidak Bisa Mengembalikan Member Ini!",
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Ya, Hapus Member!',
+          cancelButtonText: 'Batal!'
+        }).then((result) => {
+          if (result.value) {
+            this.http.delete( this.url.apiurl+'/member'+ '/' +id ).subscribe(data => {
+              console.log(data);
+                  // alert('Sukses Hapus')
+                  this.project();
+                  swal.fire(
+                    'Berhasil!',
+                    'Anda Telah Keluar dari Member Project',
+                    'success'
+                  )
+            }, err => {
+              console.log(err);
+              alert(err)
+              swal.fire(
+                'Gagal!',
+                'Anda Gagal Keluar dari Member Project.',
+                'error'
+              )
+            })
+          }
+        })
       }
 }

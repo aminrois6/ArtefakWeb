@@ -22,6 +22,7 @@ export class MemberComponent implements OnInit {
   datamember: any;
   datamember2:any;
   datacari:any;
+  datausercari:Array<any>=[];
   datanya:any;
   datarole:any;
   idrole:any;
@@ -66,6 +67,8 @@ export class MemberComponent implements OnInit {
           this.modalService.open(carirole, {ariaLabelledBy: 'app-charts'}).result.then((result) => {
             // this.closeResult = `Closed with: ${result}`;
             this.tambahmember();
+            // this.datanya.splice(i,-1);
+            // this.carimember();
             // console.log(this.datamember2.nama_user);
             
           }, (reason) => {
@@ -109,12 +112,21 @@ export class MemberComponent implements OnInit {
     })
     }
     carimember(){
+      this.datausercari=[];
+      this.datanya=[];
       let cari=this.datacari;
       console.log(this.datacari)
-      this.datanya = this.datauser.filter(function(itm){
+      this.datauser.forEach(element => {
+        if(this.datamember.findIndex(x=>x.user.nama_user==element.nama_user) != -1) return;
+        this.datausercari.push(element)
+        // console.log(element)
+      });
+      this.datanya = this.datausercari.filter(function(itm){
         // console.log(itm.nama_user);
         return itm.nama_user.toLowerCase().indexOf(cari.toLowerCase()) !== -1;
       });
+      this.panggilstatusmember();
+      this.panggiluser();
       if(this.datacari==[]||this.datacari==undefined||this.datacari==""){
         this.datanya=[];
       }
