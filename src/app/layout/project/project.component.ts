@@ -179,21 +179,21 @@ export class ProjectComponent implements OnInit {
               alert(err)
             })
     }
-    tambahversi(data){
-      let formData = new FormData();
-          formData.append('id_project', this.data.id_project);
-          formData.append('major', "1");
-          formData.append('minor', "0");
-          formData.append('patch', "0");
-          this.http.post(this.url.apiurl+'/versi/awal', formData).subscribe(data => {
+    // tambahversi(data){
+    //   let formData = new FormData();
+    //       formData.append('id_project', this.data.id_project);
+    //       formData.append('major', "1");
+    //       formData.append('minor', "0");
+    //       formData.append('patch', "0");
+    //       this.http.post(this.url.apiurl+'/versi/awal', formData).subscribe(data => {
 
-          // this.loadArtefak();
-          // this.viewana="analisis"
-        //   this.sdlclist();
-      }, err => {
-          console.log(err);
-      }) 
-    }
+    //       // this.loadArtefak();
+    //       // this.viewana="analisis"
+    //     //   this.sdlclist();
+    //   }, err => {
+    //       console.log(err);
+    //   }) 
+    // }
     hapus(id){
       swal.fire({
         title: 'Apakan Anda Yakin?',
