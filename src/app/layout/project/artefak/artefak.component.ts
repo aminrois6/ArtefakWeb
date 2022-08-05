@@ -8,6 +8,8 @@ import { Subscription } from 'rxjs';
 import { FileSaver }   from 'file-saver';
 import { send } from 'q';
 import swal from 'sweetalert2';
+import { Router } from '@angular/router';
+import { last } from 'rxjs/operators';
 
 @Component({
     selector: 'app-artefak',
@@ -31,7 +33,14 @@ export class ArtefakComponent implements OnInit {
     deskripsi: any;
     datauser:any;
     iduser:any;
+    dataversi:any;
+    dataversi2:any;
+    idversi:any;
     image_pro:any;
+    major:any;
+    minor:any;
+    patch:any;
+    faserelease:any;
     image_ext:Array<any>=['jpeg','jpg','png','gif'];
     audio_ext:Array<any>=['mp3','oga','ogg','wav', 'm3u', 'mp4a', 'mpga', 'weba', 'm4a'];
     doc_ext:Array<any>=['doc','docx','pptx','sldx','ppsx','potx','xlsx','xltx','dotx','rtf','xls','ppt','pdf', 'txt'];
@@ -39,7 +48,8 @@ export class ArtefakComponent implements OnInit {
         private http:HttpClient,
         private url:Urlservice,
         private modalService: NgbModal, 
-        private spinner:NgxSpinnerService
+        private spinner:NgxSpinnerService,
+        private router : Router,
         ) {}
     
     ngOnInit() {
@@ -48,8 +58,10 @@ export class ArtefakComponent implements OnInit {
         this.datauser=JSON.parse(localStorage.getItem('isLoggedin'));
         this.iduser=this.datauser[0]['id_user'];
         console.log(this.namaproject);
+        this.idversi=0;
         this.loadJenis();
         this.panggilmemberuser();
+        this.panggilversi();
     }
     open(content,artefak) {
       this.nama=artefak.nama_artefak;
@@ -89,18 +101,34 @@ export class ArtefakComponent implements OnInit {
           console.log(err);
       })   
     } 
+    // loadArtefak(){
+    //   console.log(this.dataproject.id_project);
+    //    let formData = new FormData();
+    //       formData.append('id_project', this.dataproject.id_project);
+    //       this.http.post(this.url.apiurl+'/artefak/project', formData).subscribe(data => {
+    //       let datanya2 =data['data'];
+    //       this.datanyaArtefak=datanya2;
+    //       console.log(datanya2);
+    //     //   this.sdlclist();
+    //   }, err => {
+    //       console.log(err);
+    //   })  
+    // }
     loadArtefak(){
-      console.log(this.dataproject.id_project);
-       let formData = new FormData();
-          formData.append('id_project', this.dataproject.id_project);
-          this.http.post(this.url.apiurl+'/artefak/project', formData).subscribe(data => {
+      // console.log(this.dataproject.id_project);
+      if(this.idversi!==0){
+        let formData = new FormData();
+          formData.append('id_versi', this.idversi);
+          this.http.post(this.url.apiurl+'/artefak/versi', formData).subscribe(data => {
           let datanya2 =data['data'];
           this.datanyaArtefak=datanya2;
           console.log(datanya2);
         //   this.sdlclist();
-      }, err => {
-          console.log(err);
-      })  
+        }, err => {
+            console.log(err);
+        })  
+      }
+       
     }
     cek(data){
       // console.log(data);
@@ -108,18 +136,26 @@ export class ArtefakComponent implements OnInit {
       this.nama="";
     }
     TambahArtefak(idjenis){
-      let formData = new FormData();
-          formData.append('id_project', this.dataproject.id_project);
-          formData.append('id_versi', "1");
-          formData.append('nama_artefak', this.nama);
-          formData.append('id_jenis', idjenis);
-          this.http.post(this.url.apiurl+'/artefak/awal', formData).subscribe(data => {
-          this.loadArtefak();
-          this.viewana="analisis"
-        //   this.sdlclist();
-      }, err => {
-          console.log(err);
-      }) 
+      if(this.idversi==0){
+        swal.fire(
+          'Gagal!',
+          'Pilih Versi Dulu.',
+          'error'
+        )
+      }else{
+        let formData = new FormData();
+            formData.append('id_project', this.dataproject.id_project);
+            formData.append('id_versi', this.idversi);
+            formData.append('nama_artefak', this.nama);
+            formData.append('id_jenis', idjenis);
+            this.http.post(this.url.apiurl+'/artefak/awal', formData).subscribe(data => {
+            this.loadArtefak();
+            this.viewana="analisis"
+          //   this.sdlclist();
+        }, err => {
+            console.log(err);
+        }) 
+      }
     }
     ProsesUpdate(){
       if(this.deskripsi==[]||this.deskripsi==''||this.deskripsi==undefined||this.deskripsi==[ ]||this.deskripsi==' '){
@@ -264,5 +300,155 @@ export class ArtefakComponent implements OnInit {
     },err=>{
       console.log(err);
     })
+    }
+    kemember(data){
+      localStorage.setItem('dataproject', JSON.stringify(data));
+      this.router.navigate(['/member']);
+    }
+    panggilversi(){
+      this.http.get(this.url.apiurl+'/versi/tampil?id_project='+this.dataproject.id_project).subscribe(data=>{
+        this.dataversi=data['data'];
+        console.log(this.dataversi);
+        // this.idversi=last.call(this.dataversi);
+    },err=>{
+      console.log(err);
+    })
+    }
+    tambahversi(){
+      let formData = new FormData();
+          formData.append('id_project', this.dataproject.id_project);
+          formData.append('major', this.major);
+          formData.append('minor', this.minor);
+          formData.append('patch', this.patch);
+          formData.append('fase_release', this.faserelease);
+          this.http.post(this.url.apiurl+'/versi', formData).subscribe(data => {
+
+          this.panggilversi();
+          // this.viewana="analisis"
+        //   this.sdlclist();
+            swal.fire(
+              'Berhasil!',
+              '',
+              'success'
+            )
+      }, err => {
+          console.log(err);
+          swal.fire(
+            'Gagal!',
+            ''+err,
+            'error'
+          )
+      }) 
+    }
+    bukaversi(addversi) {
+      // this.major=0;
+      // this.minor=0;
+      // this.patch=0;
+      // this.faserelease=data;
+      this.modalService.open(addversi, {ariaLabelledBy: 'app-charts'}).result.then((result) => {
+        // this.closeResult = `Closed with: ${result}`;
+        this.tambahversi();
+        // this.datanya.splice(i,-1);
+        // this.carimember();
+        // console.log(this.idversi);
+        
+      }, (reason) => {
+        // this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+      });
+    } 
+    loadversi(){
+        this.http.get(this.url.apiurl+'/versi/tampilversi?id_versi='+this.idversi).subscribe(data=>{
+          this.dataversi=data['data'];
+          this.major=this.dataversi.major;
+          this.minor=this.dataversi.minor;
+          this.patch=this.dataversi.patch;
+          this.faserelease=this.dataversi.faserelease;
+        },err=>{
+          console.log(err);
+        })
+    }
+    aturversi(pengaturanversi) {
+      // this.loadversi()
+      this.modalService.open(pengaturanversi, {ariaLabelledBy: 'app-charts'}).result.then((result) => {
+        // this.closeResult = `Closed with: ${result}`;
+        // this.tambahversi();
+        // this.datanya.splice(i,-1);
+        // this.carimember();
+        // console.log(this.idversi);
+        
+      }, (reason) => {
+        // this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+      });
+    } 
+    ubahversi(editversi,data) {
+      this.major=data.major;
+      this.minor=data.minor;
+      this.patch=data.patch;
+      this.faserelease=data.fase_release;
+      this.idversi=data.id_versi;
+      // console.log(data);
+      this.modalService.open(editversi, {ariaLabelledBy: 'app-charts'}).result.then((result) => {
+        // this.closeResult = `Closed with: ${result}`;
+        let formData = new FormData();
+        formData.append('id_project', this.dataproject.id_project);
+        formData.append('major', this.major);
+        formData.append('minor', this.minor);
+        formData.append('patch', this.patch);
+        formData.append('fase_release', this.faserelease);
+        // formData.append('deskripsi_artefak', this.deskripsi);
+        this.http.post(this.url.apiurl+'/versi/'+this.idversi, formData).subscribe(data => {
+        this.panggilversi();
+        swal.fire(
+          'Berhasil!',
+          '',
+          'success'
+        )
+        // this.viewana="analisis"
+      //   this.sdlclist();
+        }, err => {
+            console.log(err);
+            swal.fire(
+              'Gagal!',
+              '',
+              'error'
+            )
+        }) 
+        
+      }, (reason) => {
+        // this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+      });
+    } 
+    hapusversi(id){
+      swal.fire({
+        title: 'Apakan Anda Yakin?',
+        text: "Anda Tidak Bisa Mengembalikan Versi Ini!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Ya, Hapus Versi!',
+        cancelButtonText: 'Batal!'
+      }).then((result) => {
+        if (result.value) {
+          this.http.delete( this.url.apiurl+'/versi'+ '/' +id ).subscribe(data => {
+            console.log(data);
+                // alert('Sukses Hapus')
+                this.panggilversi();
+                swal.fire(
+                  'Terhapus!',
+                  'Versi Sudah Terhapus.',
+                  'success'
+                )
+          }, err => {
+            console.log(err);
+            alert(err)
+            swal.fire(
+              'Gagal Menghapus!',
+              'Versi Tidak Terhapus.',
+              'error'
+            )
+          })
+        }
+      })
     }
 }

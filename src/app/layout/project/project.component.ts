@@ -66,6 +66,7 @@ export class ProjectComponent implements OnInit {
           this.http.get(this.url.apiurl+'/project/tampil?id_user='+ this.iduser).subscribe(data => {
           let datanya2 =data['data'];
           this.datanya=datanya2;
+          // console.log(this.datanya)
           this.link=data['meta'].pagination;
           const total=data['meta'].pagination.total_pages;
           for (let index = 0; index < total; index++) {
@@ -156,6 +157,8 @@ export class ProjectComponent implements OnInit {
           formData.append('id_sdlc', this.idsdlc);
           this.http.post(this.url.apiurl+'/project', formData).subscribe(data => {
           console.log(data);
+          this.tambahmember(data);
+          // this.tambahversi(data);
           this.project();
       }, err => {
           console.log(err);
@@ -163,8 +166,33 @@ export class ProjectComponent implements OnInit {
       })   
       } 
     }
-    tambahmember(){
-      
+    tambahmember(data){
+      let formData = new FormData();
+                  formData.append('id_project', data.id_project);
+                  formData.append('id_user', this.iduser);
+                  formData.append('id_role_project', "2");
+                  this.http.post(this.url.apiurl+'/member', formData).subscribe(data => {
+                  console.log(data);
+                  // this.panggilstatusmember();
+            }, err => {
+              console.log(err);
+              alert(err)
+            })
+    }
+    tambahversi(data){
+      let formData = new FormData();
+          formData.append('id_project', this.data.id_project);
+          formData.append('major', "1");
+          formData.append('minor', "0");
+          formData.append('patch', "0");
+          this.http.post(this.url.apiurl+'/versi/awal', formData).subscribe(data => {
+
+          // this.loadArtefak();
+          // this.viewana="analisis"
+        //   this.sdlclist();
+      }, err => {
+          console.log(err);
+      }) 
     }
     hapus(id){
       swal.fire({

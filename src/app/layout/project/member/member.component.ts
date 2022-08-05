@@ -26,6 +26,7 @@ export class MemberComponent implements OnInit {
   datanya:any;
   datarole:any;
   idrole:any;
+  idversi:any;
   closeResult: string;
     constructor(
         private http:HttpClient,
