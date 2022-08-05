@@ -7,6 +7,7 @@ import { AlertsService } from 'angular-alert-module';
 import { AuthService, SocialUser, GoogleLoginProvider } from 'angular-6-social-login';
 import { reject } from 'q';
 import { Urlservice } from '../shared/services/url.service';
+import swal from 'sweetalert2';
 
 @Component({
     selector: 'app-login',
@@ -69,11 +70,13 @@ export class LoginComponent implements OnInit {
         this.spinner.show();
         if(email==""||email==undefined){
                 this.spinner.hide();
-                alert("Email Tidak Boleh Kosong");
+                // alert("Email Tidak Boleh Kosong");
+                swal.fire('Email Tidak Boleh Kosong','','error')
             //    alert("Email Harus di Isi");
            }else if(password==""||password==undefined){
                 this.spinner.hide();
-                alert("Password Tidak Boleh Kosong");
+                // alert("Password Tidak Boleh Kosong");
+                swal.fire('Password Tidak Boleh Kosong','','error')
             //    alert("Password Harus di Isi");
            }else {
             let formData = new FormData();
@@ -83,7 +86,8 @@ export class LoginComponent implements OnInit {
                 console.log(data);
                 if (data=="Data Kosong"){
                     this.spinner.hide();
-                    alert('Email atau Password Salah');
+                    // alert('Email atau Password Salah');
+                    swal.fire('Email atau Password Salah','','error')
                     // alert('Email atau Password Salah');
                 }else{
                     localStorage.setItem('isLoggedin', JSON.stringify(data));

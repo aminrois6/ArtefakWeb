@@ -28,7 +28,9 @@
                         <div class="card-footer text-right">
                             <!-- <button class="btn btn-light btn-sm" (click)="kemember(data)" aria-hidden="true" title="Tambah Member"><i class="bi bi-person-plus-fill"></i></button>  -->
                             
-                            <button class="btn btn-light btn-sm" (click)="hapusmember(data?.id_member)" title="Keluar dari Member"><i class="bi bi-box-arrow-right"></i></button>
+                            <!-- <i class="fa fa-solid fa-user pull-right" title="data?.role_project?.nama_role_project"></i> -->
+                            <button class="btn btn-light btn-sm pull-right" (click)="hapusmember(data?.id_member)" title="Keluar dari Member"><i class="bi bi-box-arrow-right"></i></button>
+                            <button class="btn btn-light btn-sm pull-right"  title={{data?.role_project?.nama_role_project}}><i class="fa fa-solid fa-user"></i></button>
                         </div>
                     </div>
                 </div>

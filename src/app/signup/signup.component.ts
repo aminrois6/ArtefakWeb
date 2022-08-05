@@ -5,6 +5,7 @@ import { NgxSpinnerService } from "ngx-spinner";
 import { Router } from '@angular/router';
 import { Urlservice } from '../shared/services/url.service';
 import { ImageService } from '../shared/services/image.service';
+import swal from 'sweetalert2';
 
 // const httpOptions : any    = {
 //   headers: new HttpHeaders({
@@ -39,16 +40,20 @@ export class SignupComponent implements OnInit {
 		   this.spinner.show();
    		if(this.nama==""||this.nama==undefined) {
 			this.spinner.hide();
-   			alert("Nama Tidak Boleh Kosong");
+   			// alert("Nama Tidak Boleh Kosong");
+			swal.fire('Nama Tidak Boleh Kosong','','error')
    		} else if(this.email==""||this.email==undefined) {
 			this.spinner.hide();
-   			alert("Email Tidak Boleh Kosong");
+   			// alert("Email Tidak Boleh Kosong");
+			   swal.fire('Email Tidak Boleh Kosong','','error')
    		} else if(this.password==""||this.password==undefined) {
 			this.spinner.hide();
-   			alert("Password Tidak Boleh Kosong");
+   			// alert("Password Tidak Boleh Kosong");
+			   swal.fire('Password Tidak Boleh Kosong','','error')
    		} else if(this.password!==this.password2) {
 			this.spinner.hide();
-			   alert("Repeat Password Tidak Sama");
+			//    alert("Repeat Password Tidak Sama");
+			   swal.fire('Repeat Password Tidak Sama','','error')
 		} else {
    			this.proses();
    		}
@@ -63,7 +68,8 @@ export class SignupComponent implements OnInit {
             	// console.log(data);
             	if (data=="Data Sudah Ada") {
 					this.spinner.hide();
-            		alert('Maaf Email Sudah digunakan');
+            		// alert('Maaf Email Sudah digunakan');
+					swal.fire('Maaf Email Sudah digunakan','','error')
             	} else {
 					localStorage.removeItem('datagoogle');
             		this.router.navigate(['/login']);
