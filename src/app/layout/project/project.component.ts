@@ -146,9 +146,19 @@ export class ProjectComponent implements OnInit {
       }
     tambah(){
       if(this.nama==""||this.nama==undefined){
-        alert('Nama Tidak Boleh Kosong')
+        // alert('Nama Tidak Boleh Kosong')
+        swal.fire(
+          'Gagal',
+          'Nama Tidak Boleh Kosong',
+          'error',
+        )
       }else if (this.idsdlc==0){
-        alert('Metode Project Harus di Pilih');
+        // alert('Metode Project Harus di Pilih');
+        swal.fire(
+          'Gagal',
+          'Metode Project Harus dipilih',
+          'error',
+        )
       }else{
         this.datanya=[];
         let formData = new FormData();

@@ -1,20 +1,46 @@
 <div [@routerTransition]>
     <app-page-header [heading]="'Scrum'" [icon]="'fa-edit'"></app-page-header>
-
-    <div class="row">
+    <div class="btn-group me-3">
+        <button type="button" class="btn btn-outline-dark" disabled>Versi</button>
+        <div class="input-group">
+          <select type="button" class="btn btn-outline-gray"  id="versi" name="versi" [(ngModel)]="idversi" (click)="panggiljenisbacklog()">
+              <option [value]="0" type="button" class="btn btn-outline-gray">Pilih Versi</option>
+              <option *ngFor="let data of dataversi" [value]=data.id_versi type="button" class="btn btn-outline-gray" >
+                {{data.major}}.
+                {{data.minor}}.
+                {{data.patch}}</option>
+          </select>
+        </div>
+        <button *ngIf="datamember !== 4" type="button" class="btn btn-outline-success" (click)="aturversi(pengaturanversi)"><i class="fa fa-gear" title="Atur Versi"></i></button>
+        <button *ngIf="datamember === 4" type="button" class="btn btn-outline-success" (click)="aturversi(pengaturanversi)" disabled><i class="fa fa-gear" title="Atur Versi"></i></button>
+    </div>
+    <button *ngIf="datamember !== 4 && datamember !== 1" class="btn btn-info btn-m pull-right" title="Tambah Project" (click)="kemember(dataproject)"><i class="fa fa-user" aria-hidden="true" ></i></button>
+    <button *ngIf="datamember === 4 && datamember === 1" class="btn btn-info btn-m pull-right" title="Tambah Project" (click)="kemember(dataproject)" disabled><i class="fa fa-user" aria-hidden="true" ></i></button><br>
+    <table class="table table-striped">
+        <tbody *ngIf="! datajenisbacklog">
+          <tr>
+            <td colspan="4" class="text-center">
+              LOADING...
+            </td>
+          </tr>
+        </tbody >
+      </table>   
+    <div class="wrapper" *ngIf="datajenisbacklog">
         <div class="col col-sm-4">
-            <div class="list-group mb-3">
-                <a href="#" class="list-group-item list-group-item-action active">
-                  Analisis
+            <div class="list-group mb-3"  *ngFor="let data of datajenisbacklog">
+                <a class="list-group-item list-group-item-action active">
+                    {{data.nama_jenis_backlog}}
                 </a>
-                <a href="#" class="list-group-item list-group-item-action">
+                <a class="list-group-item list-group-item-action">
                     <div class="card mb-3">
-                        <div class="card-header">
-                            Design
-                        </div>
+                        <!-- <div class="card-header"> -->
+                            {{"data.nama_jenis_backlog"}}
+                        <!-- </div>  -->
                     </div>
                 </a>
-                <a  class="list-group-item list-group-item-action" *ngIf="viewana === 'analisis'" (click)="viewana = 'tambahana'">+ Tambah Tugas</a>
+                <a  class="list-group-item list-group-item-action" 
+                *ngIf="viewana === 'analisis'" 
+                (click)="viewana = 'tambahana'" type="button">+ Tambah Tugas</a>
                 <a *ngIf="viewana === 'tambahana'">
                 <div class="card mb-4">
                     <div class="card-body">
@@ -23,12 +49,78 @@
                     <div class="card-footer">
                         <button class="btn btn-info btn-sm" (click)="randomize()">Tambah</button>
                         &nbsp;
-                        <i class="fa fa-times" (click)="viewana = 'analisis'"></i>
+                        <i class="fa fa-times" (click)="viewana = 'analisis'" type="button"></i>
                     </div>
                 </div>
                 </a>
               </div>
         </div>
+        <div class="col col-sm-4">
+            <div class="list-group mb-3">
+                <a class="list-group-item list-group-item-action " 
+                *ngIf="viewda === 'analisis'" 
+                (click)="viewda = 'tambahana'" type="button">
+                  <i class="fa fa-plus"></i> Tambah Backlog
+                </a>
+                <a *ngIf="viewda === 'tambahana'">
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <textarea name="" id="comment" cols="30" rows="2" class="form-control" placeholder="Isi nama Tugas"></textarea>                        
+                        </div>
+                        <div class="card-footer">
+                            <button class="btn btn-info btn-sm" (click)="randomize()">Tambah</button>
+                            &nbsp;
+                            <i class="fa fa-times" (click)="viewda = 'analisis'" type="button"></i>
+                        </div>
+                    </div>
+                    </a>
+              </div>
+        </div>
     </div>
     <!-- /.row -->
 </div>
+
+<ng-template #pengaturanversi let-modal>
+    <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Versi</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    </div>
+    <div class="modal-body">
+    <form>
+      <table class="table table-striped" >
+        <button type="button" class="btn btn-outline-success" (click)="bukaversi(addversi)"><i class="fa fa-plus" title="Tambah Versi"></i></button>
+        <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Major</th>
+          <th scope="col">Minor</th>
+          <th scope="col">Patch</th>
+          <th scope="col">Release</th>
+          <th scope="col"></th>
+          <!-- <th scope="col">Area</th>
+          <th scope="col">Population</th> -->
+        </tr>
+        </thead>
+        <tbody>
+          <tr  *ngFor=" let data of dataversi; index as i">
+            <th scope="row">{{i+1}}</th>
+            <td>{{data.major}}</td>
+            <td>{{data.minor}}</td>
+            <td>{{data.patch}}</td>
+            <td>{{data.fase_release}}</td>
+            <td>
+              <i class="bi bi-gear btn btn-outline-dark" type="button" title="edit versi" (click)="ubahversi(editversi, data)"></i>
+              <i class="bi bi-trash btn btn-outline-danger" type="button" title="hapus" (click)="hapusversi(data?.id_versi)"></i>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </form>
+    </div>
+    <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Save</button>
+    </div>
+  
+  </ng-template>

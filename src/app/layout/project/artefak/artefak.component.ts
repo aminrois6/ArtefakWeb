@@ -315,22 +315,24 @@ export class ArtefakComponent implements OnInit {
     })
     }
     tambahversi(){
-      let formData = new FormData();
+      if(this.major==""||this.major==undefined){
+        swal.fire('Gagal','Major Tidak Boleh Kosong','error')
+      }else if(this.minor==""||this.minor==undefined){
+        swal.fire('Gagal','Minor Tidak Boleh Kosong','error')
+      }else if(this.patch==""||this.patch==undefined){
+        swal.fire('Gagal','Patch Tidak Boleh Kosong','error')
+      } else if(this.faserelease==""||this.faserelease==undefined){
+        swal.fire('Gagal','Release Tidak Boleh Kosong','error')
+      }else{
+        let formData = new FormData();
           formData.append('id_project', this.dataproject.id_project);
           formData.append('major', this.major);
           formData.append('minor', this.minor);
           formData.append('patch', this.patch);
           formData.append('fase_release', this.faserelease);
           this.http.post(this.url.apiurl+'/versi', formData).subscribe(data => {
-
           this.panggilversi();
-          // this.viewana="analisis"
-        //   this.sdlclist();
-            swal.fire(
-              'Berhasil!',
-              '',
-              'success'
-            )
+            swal.fire('Berhasil!','','success')
       }, err => {
           console.log(err);
           swal.fire(
@@ -339,19 +341,14 @@ export class ArtefakComponent implements OnInit {
             'error'
           )
       }) 
+
+      }
+      
     }
     bukaversi(addversi) {
-      // this.major=0;
-      // this.minor=0;
-      // this.patch=0;
-      // this.faserelease=data;
       this.modalService.open(addversi, {ariaLabelledBy: 'app-charts'}).result.then((result) => {
         // this.closeResult = `Closed with: ${result}`;
         this.tambahversi();
-        // this.datanya.splice(i,-1);
-        // this.carimember();
-        // console.log(this.idversi);
-        
       }, (reason) => {
         // this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
       });
@@ -371,11 +368,6 @@ export class ArtefakComponent implements OnInit {
       // this.loadversi()
       this.modalService.open(pengaturanversi, {ariaLabelledBy: 'app-charts'}).result.then((result) => {
         // this.closeResult = `Closed with: ${result}`;
-        // this.tambahversi();
-        // this.datanya.splice(i,-1);
-        // this.carimember();
-        // console.log(this.idversi);
-        
       }, (reason) => {
         // this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
       });
