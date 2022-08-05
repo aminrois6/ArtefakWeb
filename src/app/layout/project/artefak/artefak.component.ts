@@ -142,6 +142,8 @@ export class ArtefakComponent implements OnInit {
           'Pilih Versi Dulu.',
           'error'
         )
+      }if(!this.nama){
+        alert('Error')
       }else{
         let formData = new FormData();
             formData.append('id_project', this.dataproject.id_project);
@@ -168,7 +170,7 @@ export class ArtefakComponent implements OnInit {
         console.log('Deskripsi');
         let formData = new FormData();
           formData.append('id_project', this.dataproject.id_project);
-          formData.append('id_versi', "1");
+          formData.append('id_versi', this.idversi);
           formData.append('nama_artefak', this.nama);
           formData.append('id_jenis', this.dataedit.jenis.id_jenis);
           formData.append('deskripsi_artefak', this.deskripsi);
@@ -184,7 +186,7 @@ export class ArtefakComponent implements OnInit {
       console.log('Deskripsi Kosong');
       let formData = new FormData();
         formData.append('id_project', this.dataproject.id_project);
-        formData.append('id_versi', "1");
+        formData.append('id_versi', this.idversi);
         formData.append('nama_artefak', this.nama);
         formData.append('id_jenis', this.dataedit.jenis.id_jenis);
         // formData.append('deskripsi_artefak', this.deskripsi);
@@ -315,13 +317,13 @@ export class ArtefakComponent implements OnInit {
     })
     }
     tambahversi(){
-      if(this.major==""||this.major==undefined){
+      if(this.major==null||this.major==undefined){
         swal.fire('Gagal','Major Tidak Boleh Kosong','error')
-      }else if(this.minor==""||this.minor==undefined){
+      }else if(this.minor==null||this.minor==undefined){
         swal.fire('Gagal','Minor Tidak Boleh Kosong','error')
-      }else if(this.patch==""||this.patch==undefined){
+      }else if(this.patch==null||this.patch==undefined){
         swal.fire('Gagal','Patch Tidak Boleh Kosong','error')
-      } else if(this.faserelease==""||this.faserelease==undefined){
+      } else if(this.faserelease==null||this.faserelease==undefined){
         swal.fire('Gagal','Release Tidak Boleh Kosong','error')
       }else{
         let formData = new FormData();

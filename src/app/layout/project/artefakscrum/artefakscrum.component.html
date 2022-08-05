@@ -1,85 +1,148 @@
 <div [@routerTransition]>
-    <app-page-header [heading]="'Scrum'" [icon]="'fa-edit'"></app-page-header>
+    <app-page-header [heading]="namaproject" [icon]="'fa-edit'"></app-page-header>
     <div class="btn-group me-3">
-        <button type="button" class="btn btn-outline-dark" disabled>Versi</button>
-        <div class="input-group">
-          <select type="button" class="btn btn-outline-gray"  id="versi" name="versi" [(ngModel)]="idversi" (click)="panggiljenisbacklog()">
-              <option [value]="0" type="button" class="btn btn-outline-gray">Pilih Versi</option>
-              <option *ngFor="let data of dataversi" [value]=data.id_versi type="button" class="btn btn-outline-gray" >
-                {{data.major}}.
-                {{data.minor}}.
-                {{data.patch}}</option>
-          </select>
-        </div>
-        <button *ngIf="datamember !== 4" type="button" class="btn btn-outline-success" (click)="aturversi(pengaturanversi)"><i class="fa fa-gear" title="Atur Versi"></i></button>
-        <button *ngIf="datamember === 4" type="button" class="btn btn-outline-success" (click)="aturversi(pengaturanversi)" disabled><i class="fa fa-gear" title="Atur Versi"></i></button>
+      <button type="button" class="btn btn-outline-dark" disabled>Versi</button>
+      <div class="input-group">
+        <!-- <label for="dateOfBirth">Versi</label> -->
+        <select type="button" class="btn btn-outline-gray"  id="versi" name="versi" [(ngModel)]="idversi" (click)="panggiljenisbacklog()">
+          <!-- <select  id="sdlc" name="sdlc" [(ngModel)]="idsdlc" > -->
+            <option [value]="0" type="button" class="btn btn-outline-gray">Pilih Versi</option>
+            <option *ngFor="let data of dataversi" [value]=data.id_versi type="button" class="btn btn-outline-gray" >
+              {{data.major}}.
+              {{data.minor}}.
+              {{data.patch}}
+            </option>
+        </select>
+      </div>
+      <!-- <button type="button" class="btn btn-outline-success" (click)="bukaversi(addversi)"><i class="fa fa-plus" title="Tambah Versi"></i></button> -->
+      <button *ngIf="datamember !== 4" type="button" class="btn btn-outline-success" (click)="aturversi(pengaturanversi)"><i class="fa fa-gear" title="Atur Versi"></i></button>
+      <button *ngIf="datamember === 4" type="button" class="btn btn-outline-success" (click)="aturversi(pengaturanversi)" disabled><i class="fa fa-gear" title="Atur Versi"></i></button>
     </div>
     <button *ngIf="datamember !== 4 && datamember !== 1" class="btn btn-info btn-m pull-right" title="Tambah Project" (click)="kemember(dataproject)"><i class="fa fa-user" aria-hidden="true" ></i></button>
     <button *ngIf="datamember === 4 && datamember === 1" class="btn btn-info btn-m pull-right" title="Tambah Project" (click)="kemember(dataproject)" disabled><i class="fa fa-user" aria-hidden="true" ></i></button><br>
-    <table class="table table-striped">
-        <tbody *ngIf="! datajenisbacklog">
-          <tr>
-            <td colspan="4" class="text-center">
-              LOADING...
-            </td>
-          </tr>
-        </tbody >
-      </table>   
-    <div class="wrapper" *ngIf="datajenisbacklog">
-        <div class="col col-sm-4">
-            <div class="list-group mb-3"  *ngFor="let data of datajenisbacklog">
-                <a class="list-group-item list-group-item-action active">
-                    {{data.nama_jenis_backlog}}
-                </a>
-                <a class="list-group-item list-group-item-action">
-                    <div class="card mb-3">
-                        <!-- <div class="card-header"> -->
-                            {{"data.nama_jenis_backlog"}}
-                        <!-- </div>  -->
-                    </div>
-                </a>
-                <a  class="list-group-item list-group-item-action" 
-                *ngIf="viewana === 'analisis'" 
-                (click)="viewana = 'tambahana'" type="button">+ Tambah Tugas</a>
-                <a *ngIf="viewana === 'tambahana'">
-                <div class="card mb-4">
-                    <div class="card-body">
-                        <textarea name="" id="comment" cols="30" rows="2" class="form-control" placeholder="Isi nama Tugas"></textarea>                        
-                    </div>
-                    <div class="card-footer">
-                        <button class="btn btn-info btn-sm" (click)="randomize()">Tambah</button>
-                        &nbsp;
-                        <i class="fa fa-times" (click)="viewana = 'analisis'" type="button"></i>
-                    </div>
-                </div>
-                </a>
-              </div>
+  <table class="table table-striped">
+    <tbody *ngIf="! datajenisbacklog">
+      <tr>
+        <td colspan="4" class="text-center">
+          LOADING...
+        </td>
+      </tr>
+    </tbody >
+  </table>
+  <div class="wrapper" *ngIf="datajenisbacklog">
+    <div class="item col-sm-4" *ngFor="let data of datajenisbacklog; index as i">
+      <a class="list-group-item list-group-item-action active text-white text-center">
+        <b>{{data.nama_jenis_backlog}}</b>
+      </a>
+      <ng-container *ngFor="let artefak of dataartefak; index as i">
+      <a class="list-group-item list-group-item-action" *ngIf="artefak?.jenis_backlog.id_jenis_backlog === data.id_jenis_backlog" type="button">
+          <div class="card-header" *ngIf="artefak?.jenis_backlog.id_jenis_backlog === data.id_jenis_backlog" (click)="open(content,artefak)">
+                  {{artefak.nama_backlog}}
+          </div>
+      </a>
+      </ng-container>
+      <div *ngIf="datamember !== 4">
+      <!-- <div>         -->
+        <a  class="list-group-item list-group-item-action" 
+        *ngIf="viewana === 'analisis' 
+        || viewana !== data.id_jenis_backlog"
+        (click)="cek(data.id_jenis_backlog)" type="button">+ Tambah Tugas</a>
+        <a *ngIf="viewana === data.id_jenis_backlog">
+        <div class="card mb-4">
+            <div class="card-body">
+                <textarea name="nama" id="comment" cols="30" rows="2" class="form-control" placeholder="Isi nama Tugas" [(ngModel)]="nama" ></textarea>                        
+            </div>
+            <div class="card-footer">
+                <button class="btn btn-info btn-sm" (click)="tambahbacklog(data.id_jenis_backlog)" title="Artefak Baru">Tambah</button>
+                &nbsp;
+                <i class="fa fa-times" (click)="viewana = 'analisis'"></i>
+            </div>
         </div>
-        <div class="col col-sm-4">
-            <div class="list-group mb-3">
-                <a class="list-group-item list-group-item-action " 
-                *ngIf="viewda === 'analisis'" 
-                (click)="viewda = 'tambahana'" type="button">
-                  <i class="fa fa-plus"></i> Tambah Backlog
-                </a>
-                <a *ngIf="viewda === 'tambahana'">
-                    <div class="card mb-4">
-                        <div class="card-body">
-                            <textarea name="" id="comment" cols="30" rows="2" class="form-control" placeholder="Isi nama Tugas"></textarea>                        
-                        </div>
-                        <div class="card-footer">
-                            <button class="btn btn-info btn-sm" (click)="randomize()">Tambah</button>
-                            &nbsp;
-                            <i class="fa fa-times" (click)="viewda = 'analisis'" type="button"></i>
-                        </div>
-                    </div>
-                    </a>
-              </div>
-        </div>
-    </div>
-    <!-- /.row -->
+        </a>
+      </div>
+  </div>   
+  
+  <div class="item col-sm-4" >
+    <a class="list-group-item list-group-item-action text-black text-center"
+    *ngIf="viewda === 'analisis'"(click)="viewda = 'tambahana'" type="button">
+    <i class="fa fa-plus"></i>
+    <b>Tambah Tugas</b>
+    </a>
+    <a *ngIf="viewda === 'tambahana'">
+      <div class="card mb-4">
+          <div class="card-body">
+              <textarea name="namajenis" id="comment" cols="30" rows="2" class="form-control" placeholder="Isi nama Tugas" [(ngModel)]="namajenis"></textarea>                        
+          </div>
+          <div class="card-footer">
+              <button class="btn btn-info btn-sm" (click)="tambahjenisbacklog()"> Tambah</button>
+              &nbsp;
+              <i class="fa fa-times" (click)="viewda = 'analisis'" type="button"></i>
+          </div>
+      </div>
+    </a>
+  </div>
 </div>
 
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">{{nama}}</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form>
+      <div class="form-group">
+        <!-- <i class="fa fa-archive"><label for="dateOfBirth">Nama Project</label></i> -->
+        <label for="nama">Nama Artefak</label>
+        <div class="input-group">
+            <input type="text" class="form-control" placeholder="Nama Artefak" [(ngModel)]="nama" name="nama">
+        </div>
+        <br>
+        <label for="keterangan">Keterangan</label>
+        <div class="input-group">
+          <textarea name="deskripsi" id="comment" cols="30" rows="2" class="form-control" placeholder="Isi Keterangan" [(ngModel)]="isibacklog" ></textarea>                        
+        </div>
+        <br>
+        <label for="file">File </label>
+        <div class="berkas" >
+            <table class="table table-striped" >
+                <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Nama File</th>
+                </tr>
+                </thead>
+                <tbody>
+                  <tr *ngIf="databerkas2==0">
+                    <td colspan="4" class="text-center">
+                      Belum ada Berkas Yang Tersimpan
+                    </td>
+                  </tr>
+                  <tr *ngFor="let dberkas of databerkas2; index as i">
+                    <th scope="row">{{ i + 1 }}</th>
+                    <td>{{ dberkas.nama_berkas_backlog }}</td>
+                    <td >
+                      <i *ngIf="datamember !== 4" class="fa fa-trash pull-right btn btn-outline-dark" (click)="hapusberkas(dberkas?.id_berkas_backlog)" placement="top" ngbTooltip="Hapus" type="button" title="Hapus Berkas"></i>
+                      <i class="fa fa-download pull-right btn btn-outline-dark" (click)="downloadartefak(dberkas)" alt="Download" type="button" title="Unduh Berkas"></i>
+                      <!-- <i class="fa fa-fw fa-user pull-right" title="user"></i> -->
+                    </td>
+                    <!-- <td>{{ country.population | number }}</td> -->
+                  </tr>
+                </tbody>
+              </table> 
+        </div>
+        <input type="file" id="files" (change)="uploadberkas($event)" hidden> 
+          <!-- <img class="user-avatar" src= "{{image_pro}}" width="150px" /> -->
+        <label *ngIf="datamember !== 4" for="files" type="button" class="btn btn-outline-dark" >Upload File</label>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer" *ngIf="datamember !== 4">
+    <button  type="button" class="btn btn-outline-danger" (click)="hapusartefak(idartefak) + modal.dismiss('Cross click')">Hapus Artefak</button>
+    <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Save</button>
+  </div>
+</ng-template>
 <ng-template #pengaturanversi let-modal>
     <div class="modal-header">
     <h4 class="modal-title" id="modal-basic-title">Versi</h4>
@@ -111,7 +174,7 @@
             <td>{{data.patch}}</td>
             <td>{{data.fase_release}}</td>
             <td>
-              <i class="bi bi-gear btn btn-outline-dark" type="button" title="edit versi" (click)="ubahversi(editversi, data)"></i>
+              <i class="bi bi-gear btn btn-outline-dark" type="button" title="edit versi" (click)="gantiversi(editversi, data)"></i>
               <i class="bi bi-trash btn btn-outline-danger" type="button" title="hapus" (click)="hapusversi(data?.id_versi)"></i>
             </td>
           </tr>
@@ -122,5 +185,68 @@
     <div class="modal-footer">
     <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Save</button>
     </div>
-  
-  </ng-template>
+</ng-template>
+  <ng-template #addversi let-modal>
+    <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Versi</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    </div>
+    <div class="modal-body">
+    <form>
+      <div class="mb-3">
+        <label for="nama">Major</label>
+          <div class="input-group">
+              <input type="number" class="form-control" placeholder="Major" [(ngModel)]="major" name="major">
+          </div>
+        <label for="nama">Minor</label>
+          <div class="input-group">
+              <input type="number" class="form-control" placeholder="Minor" [(ngModel)]="minor" name="minor">
+          </div>
+        <label for="nama">Patch</label>
+          <div class="input-group">
+              <input type="number" class="form-control" placeholder="Patch" [(ngModel)]="patch" name="patch">
+          </div>
+        <label for="tanggal">Release</label>
+              <input type="date" class="form-control" name="faserelease" [(ngModel)]="faserelease" >
+      </div>
+    </form>
+    </div>
+    <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Save</button>
+    </div>
+
+</ng-template>
+<ng-template #editversi let-modal>
+  <div class="modal-header">
+  <h4 class="modal-title" id="modal-basic-title">Versi</h4>
+  <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+    <span aria-hidden="true">&times;</span>
+  </button>
+  </div>
+  <div class="modal-body">
+  <form>
+    <div class="mb-3">
+      <label for="nama">Major</label>
+        <div class="input-group">
+            <input type="number" class="form-control" placeholder="Major" [(ngModel)]="major" name="major">
+        </div>
+      <label for="nama">Minor</label>
+        <div class="input-group">
+            <input type="number" class="form-control" placeholder="Minor" [(ngModel)]="minor" name="minor">
+        </div>
+      <label for="nama">Patch</label>
+        <div class="input-group">
+            <input type="number" class="form-control" placeholder="Patch" [(ngModel)]="patch" name="patch">
+        </div>
+      <label for="tanggal">Release</label>
+            <input type="date" class="form-control" name="faserelease" [(ngModel)]="faserelease" >
+    </div>
+  </form>
+  </div>
+  <div class="modal-footer">
+  <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Save</button>
+  </div>
+
+</ng-template>
