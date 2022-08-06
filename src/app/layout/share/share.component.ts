@@ -7,7 +7,6 @@ import { Observable } from 'rxjs';
 import { FormControl } from '@angular/forms';
 import { Urlservice } from '../../shared/services/url.service';
 import { NgxSpinnerService } from "ngx-spinner";
-import { AlertsService } from 'angular-alert-module';
 import swal from 'sweetalert2';
 import { Router } from '@angular/router';
 import { Route } from '@angular/compiler/src/core';
@@ -31,7 +30,7 @@ export class ShareComponent implements OnInit {
     idsdlc:any;
     datanya2:Array<any>=[];
     datanya1:any;
-    link:Array<any>=[];
+    link:any;
     total_pages:Array<any>=[];
     balik:any;
     constructor(
@@ -39,7 +38,6 @@ export class ShareComponent implements OnInit {
       private http: HttpClient, 
       private url: Urlservice,
       private spinner: NgxSpinnerService,
-      private alerts: AlertsService,
       private router : Router,
     ) {}
 
@@ -68,12 +66,13 @@ export class ShareComponent implements OnInit {
               this.datanya.push(element);
             }
           });
-          this.link=data['meta'].pagination;
+          let link2=data['meta'].pagination;
+          this.link=link2;
           const total=data['meta'].pagination.total_pages;
           for (let index = 0; index < total; index++) {
             this.total_pages.push({no:total+1}); 
           }
-          console.log(this.datanya);
+          console.log(this.link);
         //   this.sdlclist();
       }, err => {
           console.log(err);
@@ -86,13 +85,14 @@ export class ShareComponent implements OnInit {
           let datanya2 =data['data'];
           datanya2.forEach(element => {
             // console.log(element.role_project.nama_role_project)
-            if(element.role_project.nama_role_project !=='Pemilik Project'){
+            if(element.role_project.id_role_project !==2){
               this.datanya.push(element);
             }
           });
             // this.datanya=datanya2;
-            this.link=data['meta'].pagination;
-            // console.log(this.datanya);
+            let link2=data['meta'].pagination;
+            this.link=link2;
+            console.log(this.datanya);
             // this.sdlclist();
         }, err => {
             console.log(err);
@@ -105,13 +105,14 @@ export class ShareComponent implements OnInit {
           let datanya2 =data['data'];
           datanya2.forEach(element => {
             // console.log(element.role_project.nama_role_project)
-            if(element.role_project.nama_role_project !=='Pemilik Project'){
+            if(element.role_project.id_role_project !==2){
               this.datanya.push(element);
             }
           });
             // this.datanya=datanya2;
-            this.link=data['meta'].pagination;
-            // console.log(this.datanya);
+            let link2=data['meta'].pagination;
+            this.link=link2;
+            console.log(this.datanya);
             // this.sdlclist();
         }, err => {
             console.log(err);
@@ -128,7 +129,8 @@ export class ShareComponent implements OnInit {
             }
           });
             // this.datanya=datanya2;
-            this.link=data['meta'].pagination;
+            let link2=data['meta'].pagination;
+            this.link=link2;
             console.log(this.datanya);
             // this.sdlclist();
         }, err => {

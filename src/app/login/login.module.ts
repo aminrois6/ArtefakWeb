@@ -6,7 +6,6 @@ import { LoginRoutingModule } from './login-routing.module';
 import { LoginComponent } from './login.component';
 import { FormsModule } from '@angular/forms';
 import { NgxSpinnerModule } from "ngx-spinner";
-import { AlertsModule } from 'angular-alert-module';
 import {SocialLoginModule, AuthServiceConfig, GoogleLoginProvider } from 'angular-6-social-login';
 
 const config = new AuthServiceConfig([
@@ -28,7 +27,6 @@ const config = new AuthServiceConfig([
         FormsModule,
         NgxSpinnerModule,  
         SocialLoginModule,
-        AlertsModule.forRoot()
         ],
     declarations: [LoginComponent]
 })

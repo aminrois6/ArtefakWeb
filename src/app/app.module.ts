@@ -8,7 +8,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {NgbModule, NgbPaginationModule, NgbAlertModule} from '@ng-bootstrap/ng-bootstrap';
 import { DecimalPipe } from '@angular/common';
 import { NgxSpinnerModule } from "ngx-spinner";
-import { AlertsModule } from 'angular-alert-module';
 import {SocialLoginModule, AuthServiceConfig, GoogleLoginProvider } from 'angular-6-social-login';
 
 
@@ -45,7 +44,6 @@ const config = new AuthServiceConfig([
         NgbAlertModule,
         NgxSpinnerModule,    
         SocialLoginModule,
-        AlertsModule.forRoot()
     ],
     declarations: [AppComponent],
     providers: [AuthGuard, DecimalPipe, Urlservice, ImageService,

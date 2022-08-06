@@ -7,7 +7,6 @@ import { Observable } from 'rxjs';
 import { FormControl } from '@angular/forms';
 import { Urlservice } from '../../shared/services/url.service';
 import { NgxSpinnerService } from "ngx-spinner";
-import { AlertsService } from 'angular-alert-module';
 import swal from 'sweetalert2';
 import { Router } from '@angular/router';
 import { Route } from '@angular/compiler/src/core';
@@ -35,14 +34,13 @@ export class ProjectComponent implements OnInit {
     idsdlc:any;
     datanya2:Array<any>=[];
     datanya1:any;
-    link:Array<any>=[];
+    link:any;
     total_pages:Array<any>=[];
     balik:any;
     constructor(private modalService: NgbModal, 
       private http: HttpClient, 
       private url: Urlservice,
       private spinner: NgxSpinnerService,
-      private alerts: AlertsService,
       private router : Router,
       ) {
     }

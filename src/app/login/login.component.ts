@@ -3,7 +3,6 @@ import { Router } from '@angular/router';
 import { routerTransition } from '../router.animations';
 import { HttpClient, } from '@angular/common/http';
 import { NgxSpinnerService } from "ngx-spinner";
-import { AlertsService } from 'angular-alert-module';
 import { AuthService, SocialUser, GoogleLoginProvider } from 'angular-6-social-login';
 import { reject } from 'q';
 import { Urlservice } from '../shared/services/url.service';
@@ -22,7 +21,6 @@ export class LoginComponent implements OnInit {
       public router: Router,
       public http: HttpClient,
       private spinner: NgxSpinnerService,
-      private alerts: AlertsService,
       private socialAuthService: AuthService,
       private url: Urlservice,
     ) {}
