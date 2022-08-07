@@ -1,4 +1,4 @@
-import { Component, OnInit, PipeTransform } from '@angular/core';
+import { Component, OnInit,} from '@angular/core';
 import { DecimalPipe } from '@angular/common';
 import { routerTransition } from '../../router.animations';
 import { HttpClient,} from '@angular/common/http';
@@ -6,27 +6,7 @@ import { Urlservice } from '../../shared/services/url.service';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import { NgxSpinnerService } from "ngx-spinner";
 
-// class datapencarian{
-//     public id_project:string;
-//     public nama_project:string;
-//     public id_artefak:string;
-//     public nama_artefak:string;
-//     public id_versi:string;
-//     public nama_versi:string;
-//     public id_berkas:string;
-//     public nama_berkas:string;
-  
-//     constructor(id_project, nama_project, id_artefak ,nama_artefak, id_versi, nama_versi, id_berkas, nama_berkas){
-//       this.id_project=id_project;
-//       this.nama_project=nama_project;
-//       this.id_artefak=id_artefak;
-//       this.nama_artefak=nama_artefak;
-//       this.id_versi=id_versi;
-//       this.nama_versi=nama_versi;
-//       this.id_berkas=id_berkas;
-//       this.nama_berkas=nama_berkas;
-//     } 
-//   }
+
 @Component({
     selector: 'app-blank-page',
     templateUrl: './pencarian.component.html',
@@ -34,6 +14,7 @@ import { NgxSpinnerService } from "ngx-spinner";
     animations: [routerTransition()]
 })
 export class PencarianComponent implements OnInit {
+
     datacari:any;
     datauser:any;
     iduser:any;
@@ -44,7 +25,6 @@ export class PencarianComponent implements OnInit {
         private url:Urlservice,
         private modalService: NgbModal, 
         private spinner:NgxSpinnerService,
-        private pipe:DecimalPipe,
     ) {}
 
     ngOnInit() {
@@ -55,6 +35,7 @@ export class PencarianComponent implements OnInit {
         this.panggilartefak();
         this.panggilbacklog();
         this.panggilproject();
+        // this.panggilmember();
     }
 
     panggilberkas(){
@@ -73,7 +54,7 @@ export class PencarianComponent implements OnInit {
                     nama_berkas:element.nama_berkas,
                 })
             });
-            console.log(this.datanya)
+            // console.log(this.datanya)
         },err=>{
           console.log(err);
         })
@@ -95,7 +76,7 @@ export class PencarianComponent implements OnInit {
                     // idberkasbacklog:element.backlog.id_backlog,
                 })
             });
-            console.log(this.datanya)
+            // console.log(this.datanya)
         },err=>{
           console.log(err);
         })
@@ -117,7 +98,7 @@ export class PencarianComponent implements OnInit {
                     // nama_berkas:element.nama_berkas,
                 })
             });
-            console.log(this.datanya)
+            // console.log(this.datanya)
         },err=>{
           console.log(err);
         })
@@ -166,19 +147,40 @@ export class PencarianComponent implements OnInit {
           console.log(err);
         })
     }
+    panggilmember(){
+        this.http.get(this.url.apiurl+'/member/user?id_user='+this.iduser).subscribe(data=>{
+            let databerkas=data['data'];
+            // console.log(databerkas[0].artefak_project.project.nama_project);
+            databerkas.forEach(element => {
+                this.datanya.push({
+                    id_project:element.artefak_project.project.id_project,
+                    nama_project:element.artefak_project.project.nama_project,
+                    id_artefak:element.artefak_project.id_artefak,
+                    nama_artefak:element.artefak_project.nama_artefak,
+                    id_versi:element.artefak_project.versi.id_versi,
+                    versi:element.artefak_project.versi.major+"."+element.artefak_project.versi.minor+"."+element.artefak_project.versi.patch,
+                    id_berkas:element.id_berkas,
+                    nama_berkas:element.nama_berkas,
+                })
+            });
+            // console.log(this.datanya)
+        },err=>{
+          console.log(err);
+        })
+    }
     caridata(){
         this.datanya2=[];
         let cari = this.datacari;
-          this.datanya2 = this.datanya.filter(function(itm){
+        this.datanya2 = this.datanya.filter(function(itm){
             // console.log(itm.nama_user);
-            return itm.nama_project.toLowerCase().indexOf(cari.toLowerCase())!== -1;
-        //     const term = text.toLowerCase();
-        // return country.name.toLowerCase().includes(term)
-        // || pipe.transform(country.area).includes(term)
-        // || pipe.transform(country.population).includes(term);
+            // return itm.nama_project.toLowerCase().indexOf(cari.toLowerCase()) !== -1;
+            return itm.nama_project.toLowerCase().includes(cari.toLowerCase())
+            || itm.nama_artefak.toLowerCase().includes(cari.toLowerCase());
           });
           if(this.datacari==[]||this.datacari==undefined||this.datacari==""){
             this.datanya2=[];
           }
+          console.log(this.datanya2)
     }
+    
 }
