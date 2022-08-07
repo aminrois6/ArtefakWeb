@@ -7,7 +7,6 @@ import { ProjectComponent } from './project.component';
 import { PageHeaderModule } from '../../shared';
 import {NgbModule, NgbActiveModal, NgbModal, NgbPaginationModule, NgbAlertModule} from "@ng-bootstrap/ng-bootstrap";
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { AlertsModule } from 'angular-alert-module';
 
 @NgModule({
     imports: [CommonModule, 
@@ -18,8 +17,7 @@ import { AlertsModule } from 'angular-alert-module';
          FormsModule, 
          ReactiveFormsModule,
          NgbPaginationModule, 
-         NgbAlertModule,
-        AlertsModule.forRoot()
+         NgbAlertModule.forRoot()
     ],
     declarations: [ProjectComponent]
 })

@@ -1,21 +1,21 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { BlankPageComponent } from './blank-page.component';
+import { PencarianComponent } from './pencarian.component';
 
-describe('BlankPageComponent', () => {
-    let component: BlankPageComponent;
-    let fixture: ComponentFixture<BlankPageComponent>;
+describe('PencarianComponent', () => {
+    let component: PencarianComponent;
+    let fixture: ComponentFixture<PencarianComponent>;
 
     beforeEach(
         async(() => {
             TestBed.configureTestingModule({
-                declarations: [BlankPageComponent]
+                declarations: [PencarianComponent]
             }).compileComponents();
         })
     );
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(BlankPageComponent);
+        fixture = TestBed.createComponent(PencarianComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
     });

@@ -10,6 +10,7 @@ import { TranslateService } from '@ngx-translate/core';
 export class HeaderComponent implements OnInit {
     public pushRightClass: string;
     datanya:any;
+    datacari:any;
     constructor(private translate: TranslateService, public router: Router) {
 
         this.router.events.subscribe(val => {
@@ -27,7 +28,13 @@ export class HeaderComponent implements OnInit {
         this.pushRightClass = 'push-right';
         let datanya2=JSON.parse(localStorage.getItem('isLoggedin'));
         this.datanya = datanya2[0];
+        // console.log(this.datacari);
         // console.log(this.datanya);
+    }
+
+    caridata(){
+        // console.log(this.datacari);
+        this.router.navigate(['/pencarian']);
     }
 
     isToggled(): boolean {

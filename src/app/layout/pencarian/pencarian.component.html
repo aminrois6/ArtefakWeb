@@ -1,0 +1,49 @@
+<div [@routerTransition]>
+    <app-page-header [heading]="'Project'" [icon]="'fa-tasks'"></app-page-header>
+    <div class="row">
+        <div class="col col">
+            <form>
+                <div class="mb-3 row">
+                  <label for="table-filtering-search" class="col-xs-3 col-sm-auto col-form-label"></label>
+                  <div class="col-xs-3 col-sm-auto">
+                    <input id="table-filtering-search" class="form-control" name="cari" type="text" (keyup)="caridata()" placeholder="Search Data" [(ngModel)]="datacari">
+                  </div>
+                </div>
+                <table class="table table-striped" >
+                            <thead>
+                            <tr>
+                              <th scope="col">#</th>
+                              <th scope="col">Nama Project</th>
+                              <th scope="col">Nama Artefak</th>
+                              <th scope="col">Versi</th>
+                              <th scope="col col-3">Nama Berkas</th>
+                              <!-- <th scope="col">Area</th>
+                              <th scope="col">Population</th> -->
+                            </tr>
+                            </thead>
+                            <tbody>
+                              <tr *ngIf="!datanya2 || datanya2==[] ||datanya2== undefined || datanya2==''">
+                                <td colspan="4" class="text-center">
+                                  Member Tidak ditemukan!!!
+                                </td>
+                              </tr>
+                              <tr  *ngFor=" let data of datanya2; index as i">
+                                <th scope="row">{{i+1}}</th>
+                                <td>{{data.nama_project}}</td>
+                                <td>{{data.nama_artefak}}</td>
+                                <td>{{data.versi}}</td>
+                                <td>{{data.nama_berkas}}</td>
+                                <td>
+                                  <!-- <i class="fa fa-trash pull-right"  placement="top" ngbTooltip="Hapus" type="button" title="Hapus Berkas"></i>
+                                  <i class="fa fa-download pull-right"  alt="Download" type="button" title="Unduh Berkas"></i> -->
+                                  <i class="fa fa-solid fa-user-plus pull-right" title="user" (click)="buka(carirole, data)">
+                                  </i>
+                                </td>
+                                <!-- <td>{{ country.population | number }}</td> -->
+                              </tr>
+                            </tbody>
+                          </table>
+              </form>
+        </div>
+    </div>
+</div>
