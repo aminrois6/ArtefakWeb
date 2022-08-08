@@ -143,7 +143,12 @@ export class ArtefakComponent implements OnInit {
           'error'
         )
       }if(!this.nama){
-        alert('Error')
+        // alert('Error')
+        swal.fire(
+          'Gagal!',
+          'Nama Tidak Boleh Kosong.',
+          'error'
+        )
       }else{
         let formData = new FormData();
             formData.append('id_project', this.dataproject.id_project);

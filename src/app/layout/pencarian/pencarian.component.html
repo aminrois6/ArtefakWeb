@@ -16,15 +16,15 @@
                               <th scope="col">Nama Project</th>
                               <th scope="col">Nama Artefak</th>
                               <th scope="col">Versi</th>
-                              <th scope="col col-3">Nama Berkas</th>
+                              <th scope="col">Nama Berkas</th>
                               <!-- <th scope="col">Area</th>
                               <th scope="col">Population</th> -->
                             </tr>
                             </thead>
                             <tbody>
                               <tr *ngIf="!datanya2 || datanya2==[] ||datanya2== undefined || datanya2==''">
-                                <td colspan="4" class="text-center">
-                                  Member Tidak ditemukan!!!
+                                <td colspan="6" class="text-center">
+                                  Data Tidak ditemukan!!!
                                 </td>
                               </tr>
                               <tr  *ngFor=" let data of datanya2; index as i">

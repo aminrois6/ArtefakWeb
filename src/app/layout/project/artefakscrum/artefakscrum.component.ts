@@ -198,6 +198,13 @@ export class ArtefakscrumComponent implements OnInit {
           'Pilih Versi Dulu.',
           'error'
         )
+      }else if(!this.namajenis){
+        // alert('Error')
+        swal.fire(
+          'Gagal!',
+          'Tidak Boleh Kosong.',
+          'error'
+        )
       }else{
             let formData = new FormData();
             formData.append('id_project', this.dataproject.id_project);
@@ -207,6 +214,7 @@ export class ArtefakscrumComponent implements OnInit {
             this.http.post(this.url.apiurl+'/jenisbacklog', formData).subscribe(data => {
             this.panggiljenisbacklog();
               swal.fire('Berhasil!','','success')
+              this.viewda="analisis"
         }, err => {
             console.log(err);
             swal.fire('Gagal!',''+err,'error'
@@ -229,6 +237,13 @@ export class ArtefakscrumComponent implements OnInit {
         swal.fire(
           'Gagal!',
           'Pilih Versi Dulu.',
+          'error'
+        )
+      }else if(!this.nama){
+        // alert('Error')
+        swal.fire(
+          'Gagal!',
+          'Tidak Boleh Kosong.',
           'error'
         )
       }else{
@@ -366,6 +381,34 @@ export class ArtefakscrumComponent implements OnInit {
         }, err => {
             console.log(err);
         }) 
+    }
+    hapusbacklog(id){
+      swal.fire({
+        title: 'Apakan Anda Yakin?',
+        text: "Anda Tidak Bisa Mengembalikan Artefak Ini!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Ya, Hapus!',
+        cancelButtonText: 'Batal!'
+      }).then((result) => {
+        if (result.value) {
+          this.http.delete( this.url.apiurl+'/backlog'+ '/' +id ).subscribe(data => {
+            console.log(data);
+                // alert('Sukses Hapus')
+                this.panggilbacklog();
+                swal.fire(
+                  'Terhapus!','Artefak Anda Sudah Terhapus.','success'
+                )
+          }, err => {
+            console.log(err);
+            alert(err)
+            swal.fire('Gagal Menghapus!','Artefak Anda Tidak Terhapus.','error'
+            )
+          })
+        }
+      })
     }
     kemember(data){
       localStorage.setItem('dataproject', JSON.stringify(data));

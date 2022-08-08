@@ -98,8 +98,8 @@ export class PencarianComponent implements OnInit {
                     nama_artefak:element.nama_artefak,
                     id_versi:element.versi.id_versi,
                     versi:element.versi.major+"."+element.versi.minor+"."+element.versi.patch,
-                    // id_berkas:element.id_berkas,
-                    // nama_berkas:element.nama_berkas,
+                    id_berkas:"",
+                    nama_berkas:"",
                 })
             });
             // console.log(this.datanya)
@@ -120,8 +120,8 @@ export class PencarianComponent implements OnInit {
                     nama_artefak:element.nama_backlog,
                     id_versi:element.jenis_backlog.versi.id_versi,
                     versi:element.jenis_backlog.versi.major+"."+element.jenis_backlog.versi.minor+"."+element.jenis_backlog.versi.patch,
-                    // id_berkas:element.id_berkas_backlog,
-                    // nama_berkas:element.nama_berkas_backlog,
+                    id_berkas:"",
+                    nama_berkas:"",
                 })
             });
             console.log(this.datanya)
@@ -138,12 +138,12 @@ export class PencarianComponent implements OnInit {
                 this.datanya.push({
                     id_project:element.id_project,
                     nama_project:element.nama_project,
-                    // id_artefak:element.id_artefak,
-                    // nama_artefak:element.nama_artefak,
-                    // id_versi:element.versi.id_versi,
-                    // versi:element.versi.major+"."+element.versi.minor+"."+element.versi.patch,
-                    // id_berkas:element.id_berkas,
-                    // nama_berkas:element.nama_berkas,
+                    id_artefak:"",
+                    nama_artefak:"",
+                    id_versi:"",
+                    versi:"",
+                    id_berkas:"",
+                    nama_berkas:"",
                 })
             });
             console.log(this.datanya)
@@ -160,12 +160,12 @@ export class PencarianComponent implements OnInit {
                 this.datanya.push({
                     id_project:element.project.id_project,
                     nama_project:element.project.nama_project,
-                    // id_artefak:element.artefak_project.id_artefak,
-                    // nama_artefak:element.artefak_project.nama_artefak,
-                    // id_versi:element.artefak_project.versi.id_versi,
-                    // versi:element.artefak_project.versi.major+"."+element.artefak_project.versi.minor+"."+element.artefak_project.versi.patch,
-                    // id_berkas:element.id_berkas,
-                    // nama_berkas:element.nama_berkas,
+                    id_artefak:"",
+                    nama_artefak:"",
+                    id_versi:"",
+                    versi:"",
+                    id_berkas:"",
+                    nama_berkas:"",
                 })
                 this.berkas(element.project.id_project);
                 this.berkasbacklog(element.project.id_project);
@@ -227,7 +227,9 @@ export class PencarianComponent implements OnInit {
         let cari = this.datacari.toLowerCase();
         this.datanya2 = this.datanya.filter(function(itm){
             // console.log(itm.nama_user);
-            return itm.nama_project.toLowerCase().indexOf(cari) !== -1;
+            return itm.nama_project.toLowerCase().includes(cari) 
+            ||itm.nama_artefak.toLowerCase().includes(cari) 
+            ||itm.nama_berkas.toLowerCase().includes(cari);
           });
           if(this.datacari==[]||this.datacari==undefined||this.datacari==""){
             this.datanya2=[];

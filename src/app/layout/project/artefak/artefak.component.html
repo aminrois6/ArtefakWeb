@@ -18,8 +18,8 @@
       <button *ngIf="datamember === 4" type="button" class="btn btn-outline-success" (click)="aturversi(pengaturanversi)" disabled><i class="fa fa-gear" title="Atur Versi"></i></button>
     
     </div>
-    <button *ngIf="datamember !== 4 && datamember !== 1" class="btn btn-info btn-m pull-right" title="Tambah Project" (click)="kemember(dataproject)"><i class="fa fa-user" aria-hidden="true" ></i></button>
-    <button *ngIf="datamember === 4 && datamember === 1" class="btn btn-info btn-m pull-right" title="Tambah Project" (click)="kemember(dataproject)" disabled><i class="fa fa-user" aria-hidden="true" ></i></button><br>
+    <!-- <button *ngIf="datamember !== 4 && datamember !== 1" class="btn btn-info btn-m pull-right" title="Tambah Member" (click)="kemember(dataproject)"><i class="fa fa-user" aria-hidden="true" ></i></button> -->
+    <button *ngIf="datamember === 2" class="btn btn-info btn-m pull-right" title="Tambah Member" (click)="kemember(dataproject)" ><i class="fa fa-user" aria-hidden="true" ></i></button><br>
     <table class="table table-striped">
         <tbody *ngIf="! datanya">
           <tr>

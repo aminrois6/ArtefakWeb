@@ -18,8 +18,8 @@
       <button *ngIf="datamember !== 4" type="button" class="btn btn-outline-success" (click)="aturversi(pengaturanversi)"><i class="fa fa-gear" title="Atur Versi"></i></button>
       <button *ngIf="datamember === 4" type="button" class="btn btn-outline-success" (click)="aturversi(pengaturanversi)" disabled><i class="fa fa-gear" title="Atur Versi"></i></button>
     </div>
-    <button *ngIf="datamember !== 4 && datamember !== 1" class="btn btn-info btn-m pull-right" title="Tambah Project" (click)="kemember(dataproject)"><i class="fa fa-user" aria-hidden="true" ></i></button>
-    <button *ngIf="datamember === 4 && datamember === 1" class="btn btn-info btn-m pull-right" title="Tambah Project" (click)="kemember(dataproject)" disabled><i class="fa fa-user" aria-hidden="true" ></i></button><br>
+    <!-- <button *ngIf="datamember !== 4 && datamember !== 1" class="btn btn-info btn-m pull-right" title="Tambah Member" (click)="kemember(dataproject)"><i class="fa fa-user" aria-hidden="true" ></i></button> -->
+    <button *ngIf="datamember === 2" class="btn btn-info btn-m pull-right" title="Tambah Member" (click)="kemember(dataproject)" ><i class="fa fa-user" aria-hidden="true" ></i></button><br>
   <table class="table table-striped">
     <tbody *ngIf="! datajenisbacklog">
       <tr>
@@ -62,7 +62,7 @@
       </div>
   </div>   
   
-  <div class="item col-sm-4" >
+  <div class="item col-sm-4" *ngIf="datamember === 2||datamember === 3">
     <a class="list-group-item list-group-item-action text-black text-center"
     *ngIf="viewda === 'analisis'"(click)="viewda = 'tambahana'" type="button">
     <i class="fa fa-plus"></i>
@@ -139,7 +139,7 @@
     </form>
   </div>
   <div class="modal-footer" *ngIf="datamember !== 4">
-    <button  type="button" class="btn btn-outline-danger" (click)="hapusartefak(idartefak) + modal.dismiss('Cross click')">Hapus Artefak</button>
+    <button  type="button" class="btn btn-outline-danger" (click)="hapusbacklog(idbacklog) + modal.dismiss('Cross click')">Hapus Artefak</button>
     <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Save</button>
   </div>
 </ng-template>
