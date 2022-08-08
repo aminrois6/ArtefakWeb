@@ -9,6 +9,7 @@
                     <input id="table-filtering-search" class="form-control" name="cari" type="text" (keyup)="caridata()" placeholder="Search Data" [(ngModel)]="datacari">
                   </div>
                 </div>
+                <div class="berkas">
                 <table class="table table-striped" >
                             <thead>
                             <tr>
@@ -21,7 +22,7 @@
                               <th scope="col">Population</th> -->
                             </tr>
                             </thead>
-                            <tbody>
+                            <tbody class="body">
                               <tr *ngIf="!datanya2 || datanya2==[] ||datanya2== undefined || datanya2==''">
                                 <td colspan="6" class="text-center">
                                   Data Tidak ditemukan!!!
@@ -42,6 +43,7 @@
                               </tr>
                             </tbody>
                           </table>
+                        </div>
               </form>
         </div>
     </div>
