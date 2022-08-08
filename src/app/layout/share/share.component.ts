@@ -59,6 +59,7 @@ export class ShareComponent implements OnInit {
           this.http.get(this.url.apiurl+'/member/tampiluser?id_user='+ this.iduser).subscribe(data => {
             // this.http.get(this.url.apiurl+'/member').subscribe(data => {
           let datanya2 =data['data'];
+          console.log(datanya2);
           // this.datanya=datanya2;
           datanya2.forEach(element => {
             // console.log(element.role_project.nama_role_project)

@@ -34,10 +34,9 @@
                                 <td>{{data.versi}}</td>
                                 <td>{{data.nama_berkas}}</td>
                                 <td>
-                                  <!-- <i class="fa fa-trash pull-right"  placement="top" ngbTooltip="Hapus" type="button" title="Hapus Berkas"></i>
-                                  <i class="fa fa-download pull-right"  alt="Download" type="button" title="Unduh Berkas"></i> -->
-                                  <i class="fa fa-solid fa-user-plus pull-right" title="user" (click)="buka(carirole, data)">
-                                  </i>
+                                  <!-- <i class="fa fa-trash pull-right"  placement="top" ngbTooltip="Hapus" type="button" title="Hapus Berkas"></i> -->
+                                  <button class="btn btn-light btn-sm"  aria-hidden="true" title="Unduh Berkas" *ngIf="data.id_berkas" (click)="downloadberkas(data)"><i class="fa fa-download"></i></button>
+                                  <button class="btn btn-light btn-sm"  aria-hidden="true" title="Ke Lokasi Project" (click)="keproject(data)"><i class="bi bi-arrow-right-square-fill"></i></button>
                                 </td>
                                 <!-- <td>{{ country.population | number }}</td> -->
                               </tr>

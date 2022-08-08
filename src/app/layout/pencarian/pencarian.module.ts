@@ -12,7 +12,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
         CommonModule, 
         PencarianRoutingModule, 
         PageHeaderModule,
-        FormsModule
+        FormsModule,
+        ReactiveFormsModule
     ],
     declarations: [PencarianComponent]
 })
