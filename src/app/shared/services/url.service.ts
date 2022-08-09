@@ -6,9 +6,9 @@ import { Injectable } from '@angular/core';
 */
 @Injectable()
 export class Urlservice{
-  apiurl = 'http://127.0.0.1:8000/api';
-  apidownload = 'http://127.0.0.1:8000/storage/';
-  apigambar = 'http://127.0.0.1:8000/';
+  apiurl = 'https://amin-be.gradientsdev.com/api';
+  apidownload = 'https://amin-be.gradientsdev.com/storage/';
+  apigambar = 'https://amin-be.gradientsdev.com/';
   // apiurl = 'http://192.168.101.33:8000/api';
   // apigambar = 'http://192.168.101.33:8000/'; 
 }
