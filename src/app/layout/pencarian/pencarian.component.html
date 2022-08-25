@@ -1,13 +1,46 @@
 <div [@routerTransition]>
-    <app-page-header [heading]="'Project'" [icon]="'fa-tasks'"></app-page-header>
+    <app-page-header [heading]="'Pencarian Artafak'" [icon]="'fa-tasks'"></app-page-header>
     <div class="row">
         <div class="col col">
             <form>
-                <div class="mb-3 row">
+                <!-- <div class="mb-3 row ">
                   <label for="table-filtering-search" class="col-xs-3 col-sm-auto col-form-label"></label>
                   <div class="col-xs-3 col-sm-auto">
                     <input id="table-filtering-search" class="form-control" name="cari" type="text" (keyup)="caridata()" placeholder="Search Data" [(ngModel)]="datacari">
+                    <input id="table-filtering-search" class="form-control" name="cari" type="text" placeholder="Search Data" [(ngModel)]="datacari"> 
+                    <button type="button" class="btn btn-primary" (click)="caridata()">
+                    <i class="fa fa-search"></i>
+                  </button>
                   </div>
+                </div> -->
+                <nav class="navbar navbar-light bg-light">
+                  <form class="form-inline">
+                    <input class="form-control mr-sm-2" type="search" name="cari" placeholder="Search Data" aria-label="Search" [(ngModel)]="datacari">
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit" (click)="caridata()">Search</button>
+                  </form>
+                </nav>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" (click)="viewtanda='nama_project'" checked>
+                  <label class="form-check-label" for="flexRadioDefault1">
+                    Project
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" (click)="viewtanda='nama_artefak'" >
+                  <label class="form-check-label" for="flexRadioDefault2">
+                    Artefak
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" (click)="viewtanda='keterangan'" >
+                  <label class="form-check-label" for="flexRadioDefault2">
+                    Keterangan
+                  </label>
+                </div><div class="form-check">
+                  <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" (click)="viewtanda='nama_berkas'" >
+                  <label class="form-check-label" for="flexRadioDefault2">
+                    Berkas
+                  </label>
                 </div>
                 <div class="berkas">
                 <table class="table table-striped" >
@@ -16,6 +49,7 @@
                               <th scope="col">#</th>
                               <th scope="col">Nama Project</th>
                               <th scope="col">Nama Artefak</th>
+                              <th scope="col">Keterangan</th>
                               <th scope="col">Versi</th>
                               <th scope="col">Nama Berkas</th>
                               <!-- <th scope="col">Area</th>
@@ -23,15 +57,16 @@
                             </tr>
                             </thead>
                             <tbody class="body">
-                              <tr *ngIf="!datanya2 || datanya2==[] ||datanya2== undefined || datanya2==''">
+                              <tr *ngIf="!datanya3 || datanya3==[] ||datanya3== undefined || datanya3==''">
                                 <td colspan="6" class="text-center">
                                   Data Tidak ditemukan!!!
                                 </td>
                               </tr>
-                              <tr  *ngFor=" let data of datanya2; index as i">
+                              <tr  *ngFor=" let data of datanya3; index as i">
                                 <th scope="row">{{i+1}}</th>
                                 <td>{{data.nama_project}}</td>
                                 <td>{{data.nama_artefak}}</td>
+                                <td>{{data.keterangan}}</td>
                                 <td>{{data.versi}}</td>
                                 <td>{{data.nama_berkas}}</td>
                                 <td>

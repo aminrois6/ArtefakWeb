@@ -84,7 +84,21 @@ export class ArtefakscrumComponent implements OnInit {
       }else if(this.patch==null||this.patch==undefined){
         swal.fire('Gagal','Patch Tidak Boleh Kosong','error')
       } else if(this.faserelease==null||this.faserelease==undefined){
-        swal.fire('Gagal','Release Tidak Boleh Kosong','error')
+      //   swal.fire('Gagal','Release Tidak Boleh Kosong','error')
+          let formData = new FormData();
+            formData.append('id_project', this.dataproject.id_project);
+            formData.append('major', this.major);
+            formData.append('minor', this.minor);
+            formData.append('patch', this.patch);
+            // formData.append('fase_release', this.faserelease);
+            this.http.post(this.url.apiurl+'/versi/kosong', formData).subscribe(data => {
+            this.panggilversi();
+              swal.fire('Berhasil!','','success')
+        }, err => {
+            console.log(err);
+            swal.fire('Gagal!',''+err,'error'
+            )
+        }) 
       }else{
         let formData = new FormData();
           formData.append('id_project', this.dataproject.id_project);
