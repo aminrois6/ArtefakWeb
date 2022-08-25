@@ -27,6 +27,13 @@ export class PencarianComponent implements OnInit {
     datanya3:Array<any>=[];
     viewtanda:any;
     cobasort:any;
+    tampilan:any;
+    preproses:any;
+    tokenizing:any;
+    filtering:any;
+    stemming:any;
+    term:any;
+    df:any;
     constructor(
         private http:HttpClient,
         private url:Urlservice,
@@ -36,6 +43,7 @@ export class PencarianComponent implements OnInit {
     ) {}
 
     ngOnInit() {
+        this.tampilan='pencarian';
         this.datauser=JSON.parse(localStorage.getItem('isLoggedin'));
         this.iduser=this.datauser[0]['id_user'];
         localStorage.removeItem('dataproject');
@@ -244,6 +252,7 @@ export class PencarianComponent implements OnInit {
     caridata(){
         this.datanya2=[];
         let cari = this.datacari.toLowerCase();
+        this.prosesindex(cari);
         console.log(this.viewtanda);
         // this.preprocess();
         if(this.viewtanda=="nama_project"){
@@ -267,9 +276,24 @@ export class PencarianComponent implements OnInit {
            if(this.datacari==[]||this.datacari==undefined||this.datacari==""){
             this.datanya2=[];
           }
-            
           this.vsm(this.viewtanda);
         console.log(this.datanya3);
+    }
+    prosesindex(data){
+        // console.log(data)
+        let formData = new FormData();
+          formData.append('cari_query', data);
+          this.http.post(this.url.apiurl+'/prosesdua', formData).subscribe(data => {
+        //   console.log(data);
+          this.preproses=data;
+          this.tokenizing=data['tokenizing'];
+          this.filtering=data['filtering'];
+          this.stemming=data['stemming'];
+          console.log(this.preproses);
+      }, err => {
+          console.log(err);
+          alert(err)
+      })  
     }
     vsm(tanda){
         this.datanya3=[];
@@ -281,7 +305,10 @@ export class PencarianComponent implements OnInit {
           formData.append('dokumen', JSON.stringify(this.datanya));
           this.http.post(this.url.apiurl+'/prosesvsm', formData).subscribe(data => {
         //   console.log(data);
-          this.datavsm.push(data);
+          this.datavsm.push(data['similarity']);
+          this.term=data['query'];
+          this.df=data['dokumen'];
+          console.log(this.term)
         //   console.log(this.datavsm[0])
           this.datavsm[0].forEach(element=>{
             if(this.viewtanda=="keterangan"){

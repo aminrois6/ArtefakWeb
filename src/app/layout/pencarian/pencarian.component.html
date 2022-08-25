@@ -18,7 +18,46 @@
                     <input class="form-control mr-sm-2" type="search" name="cari" placeholder="Search Data" aria-label="Search" [(ngModel)]="datacari">
                     <button class="btn btn-outline-success my-2 my-sm-0" type="submit" (click)="caridata()">Search</button>
                   </form>
+                  <form class="form-inline">
+                    <button class="btn btn-outline-primary my-2 my-sm-0" type="submit" (click)="tampilan='pembuktian'" *ngIf="tampilan=='pencarian'">Detail Artefak</button>
+                    <button class="btn btn-outline-primary my-2 my-sm-0" type="submit" (click)="tampilan='pencarian'" *ngIf="tampilan=='pembuktian'">Cari Artefak</button>
+                  </form>
                 </nav>
+            <div *ngIf="tampilan=='pembuktian'">
+              <div class="wrapper" >
+                <div class="item col-sm-4" >
+                  <a class="list-group-item list-group-item-action active text-white text-center">
+                    <b>Tokenizing</b>
+                  </a>
+                  <ng-container *ngFor="let artefak of tokenizing; index as i">
+                  <a class="list-group-item list-group-item-action" >
+                              {{artefak}}
+                  </a>
+                  </ng-container>
+                </div>
+                <div class="item col-sm-4" >
+                  <a class="list-group-item list-group-item-action active text-white text-center">
+                    <b>Filtering</b>
+                  </a>
+                  <ng-container *ngFor="let artefak of filtering; index as i">
+                  <a class="list-group-item list-group-item-action" > 
+                      {{artefak}}
+                  </a>
+                  </ng-container>
+                </div>
+                <div class="item col-sm-4" >
+                  <a class="list-group-item list-group-item-action active text-white text-center">
+                    <b>Stemming</b>
+                  </a>
+                  <ng-container *ngFor="let artefak of stemming; index as i">
+                  <a class="list-group-item list-group-item-action" >
+                      {{artefak}}
+                  </a>
+                  </ng-container>
+                </div>
+              </div>
+            </div>
+            <div *ngIf="tampilan=='pencarian'">
                 <div class="form-check">
                   <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" (click)="viewtanda='nama_project'" checked>
                   <label class="form-check-label" for="flexRadioDefault1">
@@ -52,6 +91,7 @@
                               <th scope="col">Keterangan</th>
                               <th scope="col">Versi</th>
                               <th scope="col">Nama Berkas</th>
+                              <th scope="col">Ranking</th>
                               <!-- <th scope="col">Area</th>
                               <th scope="col">Population</th> -->
                             </tr>
@@ -69,6 +109,7 @@
                                 <td>{{data.keterangan}}</td>
                                 <td>{{data.versi}}</td>
                                 <td>{{data.nama_berkas}}</td>
+                                <td>{{data.ranking}}</td>
                                 <td>
                                   <!-- <i class="fa fa-trash pull-right"  placement="top" ngbTooltip="Hapus" type="button" title="Hapus Berkas"></i> -->
                                   <button class="btn btn-light btn-sm"  aria-hidden="true" title="Unduh Berkas" *ngIf="data.id_berkas" (click)="downloadberkas(data)"><i class="fa fa-download"></i></button>
@@ -78,6 +119,7 @@
                               </tr>
                             </tbody>
                           </table>
+                        </div>
                         </div>
               </form>
         </div>
